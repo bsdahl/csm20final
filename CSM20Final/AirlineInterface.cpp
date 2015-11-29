@@ -10,7 +10,7 @@
 
 bool AirlineInterface::displayMenu()
 {
-    int option;
+    char option;
     
     cout << "Welcome to CSM20 Airlines. Choose an option.\n";
     cout << "1. Display all passengers.\n";
@@ -22,8 +22,8 @@ bool AirlineInterface::displayMenu()
     cout << "7. Display all flights.\n";
     cout << "8. Display all flights including passengers.\n";
     cout << "9. Search for a passenger.\n";
-    cout << "10. Search for a flight.\n";
-    cout << "11. Quit.\n";
+    cout << "0. Search for a flight.\n";
+    cout << "Q. Quit.\n";
     cout << "Enter your selection: ";
     
     cin >> option;
@@ -31,65 +31,65 @@ bool AirlineInterface::displayMenu()
     
     switch (option)
     {
-        {case 1:
+        {case '1':
             displayAllPassengers();
             break;}
             
-        {case 2:
+        {case '2':
             string city;
             cout << "Enter Destination City: ";
             cin >> city;
             displayPassengersTo(city);
             break;}
             
-        {case 3:
+        {case '3':
             string city;
             cout << "Enter Origin City: ";
             cin >> city;
             displayPassengersFrom(city);
             break;}
             
-        {case 4:
+        {case '4':
             size_t flight;
             cout << "Enter Flight Number: ";
             cin >> flight;
             displayPassengersOnFlt(flight);
             break;}
             
-        {case 5:
+        {case '5':
             size_t flight;
             cout << "Enter Flight Number: ";
             cin >> flight;
             displayWaitFlight(flight);
             break;}
             
-        {case 6:
+        {case '6':
             displayWaitAll();
             break;}
             
-        {case 7:
+        {case '7':
             displayAllFlights();
             break;}
             
-        {case 8:
+        {case '8':
             displayAllFlightsPassengers();
             break;}
             
-        {case 9:
+        {case '9':
             string passenger;
             cout << "Enter a Reservation number or name: ";
             cin >> passenger;
             searchPassenger(passenger);
             break;}
             
-        {case 10:
+        {case '0':
             size_t flight;
             cout << "Enter Flight Number: ";
             cin >> flight;
             searchFlight(flight);
             break;}
             
-        {case 11:
+        {case 'Q':
             return false;
             break;}
             
