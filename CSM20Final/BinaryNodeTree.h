@@ -51,25 +51,17 @@ protected:
 	///////////////////////
 	// Exception Classes //
 	///////////////////////
-#ifndef _NOT_FOUND_EXCEP
-#define _NOT_FOUND_EXCEP
 	class NotFoundException : public logic_error
 	{
 	public:
 		NotFoundException(const std::string& message = "") : logic_error("Not Found Exception: " + message) {}
 	}; // end NotFoundExcep
 
-#endif
-
-#ifndef PRECOND_VIOLATED_EXCEPT
-#define PRECOND_VIOLATED_EXCEPT
 	class PrecondViolatedExcep : public std::runtime_error
 	{
 	public:
 		PrecondViolatedExcep(std::string message) : runtime_error("\nPrecondition Violated Exception: " + message + "\n") { }
 	};
-
-#endif
 
 
 #ifdef BNT_DEBUG
