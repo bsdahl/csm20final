@@ -18,7 +18,7 @@
 
 #include "AVLTree.h"
 #include "ListSearch.h"
-#include "../Graph class/flightMap.h"
+#include "flightMap.h"
 
 class FlightManager
 {

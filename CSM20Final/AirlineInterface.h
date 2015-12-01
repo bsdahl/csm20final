@@ -12,7 +12,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <string>
-//#include "FlightManager.h"
+#include "FlightManager.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ public:
     bool displayMenu();
     
 private:
-    //FlightManager data;
+    FlightManager data;
     
     bool displayAllPassengers();
     bool displayPassengersTo(string);
