@@ -44,7 +44,7 @@ private:
 template<class Type>
 void ListSearch<Type>::displayResults()		// Outputs all elements of results vector. Displays an error if results vector is empty.
 {
-	if (!results.empty)
+	if (!results.empty())
 	{
 		for (int i = 0; i < results.size(); i++)
 			std::cout << results[i] << std::endl;
