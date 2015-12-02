@@ -14,13 +14,7 @@ using namespace std;
 
 PassengerData::PassengerData( size_t reservation, string first, string last,
 							  size_t seatClass, size_t flight )
-{
-	setFirstName(first);
-	setLastName(last);
-	setMembership(seatClass);
-	setReservationNum(reservation);
-	setFlightNum(flight);
-}
+{}
 
 void PassengerData::setFirstName(string first)
 {
