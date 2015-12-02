@@ -19,8 +19,8 @@ public:
 	////////////////////////////////////////////
 	// Constructor
 	////////////////////////////////////////////
-	PassengerData( std::string first = "", std::string last = "", size_t seatClass = 0,
-				   size_t reservation = 0, size_t flight = 0);
+	PassengerData( size_t reservation = 0, std::string first = "", std::string last = "",
+				   size_t seatClass = 0, size_t flight = 0);
 
 	////////////////////////////////////////////
 	// Public Interface Functions
@@ -51,8 +51,8 @@ private:
 	// Copy constructor and assignment operator
 	// Set to private to prevent copies
 	///////////////////////////////////////////
-	PassengerData ( const PassengerData & );
-	PassengerData & operator = ( const PassengerData & rhs );
+	PassengerData ( const PassengerData & ) {}
+	PassengerData & operator = ( const PassengerData & rhs ) {}
 
 	///////////////////////////////////////////
 	// Helper function and class data members
