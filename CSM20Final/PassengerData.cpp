@@ -12,12 +12,12 @@ using namespace std;
 
 #include "PassengerData.h"
 
-PassengerData::PassengerData( string first, string last, size_t Membership,
-							  size_t reservation, size_t flight )
+PassengerData::PassengerData( size_t reservation, string first, string last,
+							  size_t seatClass, size_t flight )
 {
 	setFirstName(first);
 	setLastName(last);
-	setMembership(Membership);
+	setMembership(seatClass);
 	setReservationNum(reservation);
 	setFlightNum(flight);
 }
@@ -72,17 +72,68 @@ void PassengerData::setFlightNum(const size_t flight)
 
 const bool PassengerData::operator ==(const PassengerData& rhs)
 {
-	return (getReservationNum() == rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName == rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName == rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass == rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.flightNum != 0) && (flightNum == rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum == rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 const bool PassengerData::operator >(const PassengerData& rhs)
 {
-	return (getReservationNum() > rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName > rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName > rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass > rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.flightNum != 0) && (flightNum > rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum > rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 const bool PassengerData::operator <(const PassengerData& rhs)
 {
-	return (getReservationNum() < rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName < rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName < rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass < rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.flightNum != 0) && (flightNum < rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum < rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 bool PassengerData::nameCheck(string name)
@@ -116,14 +167,34 @@ istream & operator >> (istream &in, PassengerData &val)
 
 	getline(in, buf, ',');
 	val.setMembership(stol(buf));
-	
+
 	return in;
 }
 
 ostream &operator << (ostream & out, const PassengerData & val)
 {
-	out << val.getFirstName() << " " << val.getLastName() << ", " << val.getReservationNum() << ", "
-		<< val.getMembership() << ", " << val.getFlightNum();
-		
+	size_t membership = val.getMembership();
+
+	out << val.getFirstName() << " " << val.getLastName() << ", " << val.getReservationNum() << ", ";
+	switch (membership)
+	{
+	case 1:
+		out << "Pilot Club";
+		break;
+	case 2:
+		out << "First Class";
+		break;
+	case 3:
+		out << "Business Class";
+		break;
+	case 4:
+		out << "Economy Class";
+		break;
+	default:
+		break;
+	}
+
+	out << ", " << val.getFlightNum(); 
+
 	return out;
 }
