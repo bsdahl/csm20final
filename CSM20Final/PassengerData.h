@@ -51,8 +51,8 @@ private:
 	// Copy constructor and assignment operator
 	// Set to private to prevent copies
 	///////////////////////////////////////////
-	PassengerData ( const PassengerData & ) {}
-	PassengerData & operator = ( const PassengerData & rhs ) {}
+	//PassengerData ( const PassengerData & ) {}
+	//PassengerData & operator = ( const PassengerData & rhs ) {}
 
 	///////////////////////////////////////////
 	// Helper function and class data members
