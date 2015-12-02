@@ -41,6 +41,8 @@ public:
 	}
 	bool addPassenger(const PassengerData& pd);
 	bool findPassenger(const PassengerData& pd);
+	std::vector<PassengerData> getSeatMap() { return seatMap; }
+	void setSeatMap(const std::vector<PassengerData>& sm) { seatMap = sm; }
 	PassengerData& removePassenger(const PassengerData& pd);
 
 };
