@@ -1,6 +1,6 @@
 #CSM20 Final Group Project
 
-This is the Design Topic for the CSM20 Final Group Project for the right group. The goal of the assignment was to create an Airline Reservations System in C++. 
+This is the Design Document for the CSM20 Final Group Project for the right group. The goal of the assignment was to create an Airline Reservations System in C++. 
 
 ##Design Strategies
 
