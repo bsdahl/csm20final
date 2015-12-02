@@ -27,22 +27,29 @@ private:
 	class SearchForPassenger
 	{
 	public:
-		SearchForPassenger() { clearKeys(); }
-		void setFirstNameKey(string key) { firstNameKey = key; }
-		void setLastNameKey(string key) { lastNameKey = key; }
-		void setReservationNumKey(size_t key) { reservationNumKey = key; }
-		void clearKeys() { firstNameKey		 = "";
-						   lastNameKey		 = "";
-					   	   reservationNumKey = 0; }
+		SearchForPassenger()					{ clearKeys();			   }
+
+		void setFirstNameKey	 (string key)	{ firstNameKey		= key; }
+		void setLastNameKey		 (string key)	{ lastNameKey		= key; }
+		void setReservationNumKey(size_t key)	{ reservationNumKey = key; }
+		void setFightNumKey		 (size_t key)	{ flightNumKey		= key; }
+
+		void clearKeys()						{ firstNameKey		= "";
+												  lastNameKey		= "";
+					   							  reservationNumKey = 0; 
+												  flightNumKey		= 0;   }
+
 		void operator()(PassengerData data)
 		{
 			bool match = true;
 			if (firstNameKey != "")
-				match = match && (firstNameKey == data.getFirstName());
+				match = match && (firstNameKey		== data.getFirstName());
 			if (lastNameKey != "")
-				match = match && (lastNameKey == data.getLastName());
+				match = match && (lastNameKey		== data.getLastName());
 			if (reservationNumKey != 0)
 				match = match && (reservationNumKey == data.getReservationNum());
+			if (flightNumKey != 0)
+				match = match && (flightNumKey		== data.getFlightNum());
 			if (match)
 				cout << data;
 		}
@@ -51,37 +58,51 @@ private:
 		string firstNameKey;
 		string lastNameKey;
 		size_t reservationNumKey;
+		size_t flightNumKey;
 	};
 
 	class SearchForFlight
 	{
 	public:
-		SearchForFlight() { clearKeys(); }
-		void setToCity(char key) { toCity = key; }
-		void setFromCity(char key) { fromCity = key; }
-		void setFlightNum(size_t key) { flightNum = key; }
-		void clearKeys() { toCity	 = 0;
-						   fromCity  = 0;
-						   flightNum = 0; }
+		SearchForFlight()						{ clearKeys();			   }
+		void setToCity(char key)				{ toCity			= key; }
+		void setFromCity(char key)				{ fromCity			= key; }
+		void setFlightNum(size_t key)			{ flightNum			= key; }
+		void setDisplayPassengers(bool key)		{ displayPassengers = key; }
+
+		void clearKeys()						{ toCity			= 0;
+												  fromCity			= 0;
+												  flightNum			= 0;   
+												  displayPassengers = true;}
+
 		void operator()(FlightData data) 
 		{
 			bool match = true;
 			if (toCity != 0)
-				match = match && (toCity == data.getToCity());
+				match = match && (toCity			== data.getToCity());
 			if (fromCity != 0)
-				match = match && (fromCity == data.getFromCity());
+				match = match && (fromCity			== data.getFromCity());
 			if (flightNum != 0)
-				match = match && (flightNum == data.getFlightNumber());
+				match = match && (flightNum			== data.getFlightNumber());
 			if (match)
-				cout << data; 
+			{
+				cout << data;
+				if (displayPassengers)
+				{
+					cout << "Placeholder";
+				}
+			}
 		}
 	private:
 		char toCity;
 		char fromCity;
 		size_t flightNum;
+		bool displayPassengers;
 	};
 
     FlightManager data;
+	SearchForPassenger passengerSearch;
+	SearchForFlight flightSearch;
     
     bool displayAllPassengers();
     bool displayPassengersTo(char);
@@ -94,11 +115,12 @@ private:
     bool displayAllFlights();
     bool displayAllFlightsPassengers();
     
-    bool searchPassenger(string);
+    bool searchPassenger(string, string);
+	bool searchPassenger(size_t);
     bool searchFlight(size_t);
 
 	char getCityInput();
-	size_t getFlightInput();
+	size_t getNumericInput();
 };
 
 #endif
