@@ -42,9 +42,9 @@ public:
 	///////////////////////////////////////////
 	// Overloaded operators
 	///////////////////////////////////////////
-	const bool operator == (const PassengerData & rhs);
-	const bool operator >  (const PassengerData & rhs);
-	const bool operator <  (const PassengerData & rhs);
+	const bool operator == (const PassengerData & rhs) const;
+	const bool operator >  (const PassengerData & rhs) const;
+	const bool operator <  (const PassengerData & rhs) const;
 
 private:
 	///////////////////////////////////////////
