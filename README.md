@@ -19,10 +19,10 @@ We all worked together to create a design plan for the application. Strategies i
 |PassengerData.h
 |---------------
 |firstName : string
-|lastName : string
-|seatClass : size_t
-|reservationNumber : size_t
-|flightNum : size_t
+lastName : string
+seatClass : size_t
+reservationNumber : size_t
+flightNum : size_t
 |------------------
 |PassengerData()
 |setFirstName()
