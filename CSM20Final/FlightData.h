@@ -14,7 +14,7 @@ private:
 	FlightData(const FlightData& other) { }
 public:
 	FlightData(size_t fn = 0, size_t miles = 0, size_t departTime = 0,
-		size_t arriveTime = 0, char toc = '', char frc = '')
+		size_t arriveTime = 0, char toc = '0', char frc = '0')
 		: flightNumber(fn), mileage(miles), departTime(departTime),
 		arriveTime(arriveTime), toCity(toc), fromCity(frc) { }
 	void setFlightNumber(size_t fn) { flightNumber = fn; }
@@ -25,7 +25,7 @@ public:
 	void setFromCity(char city) { fromCity = city; }
 	size_t getMaxPassengers() { return MAX_PASSENGERS; }
 	size_t getFlightNumber() { return flightNumber; }
-	size_t mileage() { return mileage; }
+	size_t getMileage() { return mileage; }
 	size_t departureTime() { return departTime; }
 	size_t arrivalTime() { return arriveTime; }
 	char getToCity() { return toCity; }
