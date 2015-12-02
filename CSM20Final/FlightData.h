@@ -7,7 +7,7 @@
 
 class FlightData {
 private:
-	const size_t MAX_PASSENGERS = 40;
+	static const size_t MAX_PASSENGERS = 40;
 	size_t flightNumber, mileage, departTime, arriveTime;
 	char toCity, fromCity;
 	std::vector<PassengerData> seatMap;

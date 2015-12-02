@@ -9,16 +9,23 @@
 #ifndef _FlightManager
 #define _FlightManager
 
-#define PASS_DATA_TYPE int		// TODO: change placeholder type to passenger data type when available
-#define FLIGHT_DATA_TYPE float	// TODO: change placeholder type to flight data type when available
 
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <queue>
+#include <string>
 
 #include "AVLTree.h"
-#include "ListSearch.h"
+// #include "ListSearch.h" no longer used in this class
 #include "flightMap.h"
+#include "PassengerData.h"
+#include "FlightData.h"
+#include "SeatingQueue.h"
+
+#define PASS_DATA_TYPE PassengerData		// TODO: change placeholder type to passenger data type when available
+#define FLIGHT_DATA_TYPE FlightData		// TODO: change placeholder type to flight data type when available
+
 
 class FlightManager
 {
@@ -26,14 +33,22 @@ public:
 	/////////////////////////////
 	// Constructors/Destructor //
 	/////////////////////////////
-	FlightManager();
+	FlightManager() : seatQueue(waitList) {}
+	FlightManager(const std::string&, const std::string&);
 	~FlightManager() {}
 
 	////////////////////////////////
 	// Public Interface Functions //
 	////////////////////////////////
-	bool search(const PASS_DATA_TYPE&);
-	bool search(const FLIGHT_DATA_TYPE&);
+//	bool search(const PASS_DATA_TYPE&);		// Replaced with traversal proxy
+//	bool search(const FLIGHT_DATA_TYPE&);	// Replaced with traversal proxy
+	template<class Function>
+	void traversePassenger(Function& fxn) { passengerList.inorderTraverse(fxn); }
+	template<class Function>
+	void traverseFlight(Function& fxn) { flightList.inorderTraverse(fxn); }
+	template<class Function>
+	void traverseWait(Function& fxn) { waitList.inorderTraverse(fxn); }
+
 	void addPassenger(const PASS_DATA_TYPE& passenger);
 	void addFlight(FLIGHT_DATA_TYPE& flight);
 
@@ -44,15 +59,14 @@ private:
 	AVLTree<PASS_DATA_TYPE> passengerList;
 	AVLTree<FLIGHT_DATA_TYPE> flightList;
 	AVLTree<PASS_DATA_TYPE> waitList;
-	flightMap<char> Map;
-	ListSearch<PASS_DATA_TYPE> passengerSearch;
-	ListSearch<FLIGHT_DATA_TYPE> flightSearch;
+	//flightMap Map;
+	SeatingQueue seatQueue;
+
 
 	///////////////////////////////
 	// Private Utility Functions //
 	///////////////////////////////
 	void calculateMileage(FLIGHT_DATA_TYPE&);
-	void populateMap(); 
 };
 
 
