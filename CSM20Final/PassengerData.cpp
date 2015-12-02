@@ -72,17 +72,68 @@ void PassengerData::setFlightNum(const size_t flight)
 
 const bool PassengerData::operator ==(const PassengerData& rhs)
 {
-	return (getReservationNum() == rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName == rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName == rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass == rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.seatClass != 0) && (flightNum == rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum == rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 const bool PassengerData::operator >(const PassengerData& rhs)
 {
-	return (getReservationNum() > rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName > rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName > rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass > rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.flightNum != 0) && (flightNum > rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum > rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 const bool PassengerData::operator <(const PassengerData& rhs)
 {
-	return (getReservationNum() < rhs.getReservationNum());
+	bool check = false;
+	if (reservationNum == 0 && rhs.reservationNum == 0)
+	{
+		if ((firstName != "" && rhs.firstName != "") && (firstName < rhs.firstName))
+			check = true;
+		if ((lastName != "" && rhs.lastName != "") && (lastName < rhs.lastName))
+			check = true;
+		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass < rhs.seatClass))
+			check = true;
+		if ((flightNum != 0 && rhs.flightNum != 0) && (flightNum < rhs.flightNum))
+			check = true;
+	}
+	else if (reservationNum < rhs.reservationNum)
+		check = true;
+	else
+		check = false;
+
+	return check;
 }
 
 bool PassengerData::nameCheck(string name)
@@ -116,14 +167,14 @@ istream & operator >> (istream &in, PassengerData &val)
 
 	getline(in, buf, ',');
 	val.setMembership(stol(buf));
-	
+
 	return in;
 }
 
 ostream &operator << (ostream & out, const PassengerData & val)
 {
 	out << val.getFirstName() << " " << val.getLastName() << ", " << val.getReservationNum() << ", "
-		<< val.getMembership() << ", " << val.getFlightNum();
-		
+		<< val.getMembership() << ", " << val.getFlightNum(); 
+
 	return out;
 }
