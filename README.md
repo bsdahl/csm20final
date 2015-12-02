@@ -20,26 +20,26 @@ We all worked together to create a design plan for the application. Strategies i
 	<tr>
 		<td>PassengerData.h</td>
 	<tr>
-		<td>firstName : string
-lastName : string
-seatClass : size_t
-reservationNumber : size_t
+		<td>firstName : string<br>
+lastName : string<br>
+seatClass : size_t<br>
+reservationNumber : size_t<br>
 flightNum : size_t</td>
 	</tr>
 	<tr>
-		<td>PassengerData()
-setFirstName()
-setLastName()
-setMembership()
-setReservationNum()
-setFlightNum()
-getFirstName()
-getLastName()
-getMembership()
-getReservationNum()
-getFlightNum()
-operator ==
-operator >
+		<td>PassengerData()<br>
+setFirstName()<br>
+setLastName()<br>
+setMembership()<br>
+setReservationNum()<br>
+setFlightNum()<br>
+getFirstName()<br>
+getLastName()<br>
+getMembership()<br>
+getReservationNum()<br>
+getFlightNum()<br>
+operator ==<br>
+operator ><br>
 operator <</td>
 	</tr>
 </table>
