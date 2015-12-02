@@ -116,10 +116,14 @@ istream & operator >> (istream &in, PassengerData &val)
 
 	getline(in, buf, ',');
 	val.setMembership(stol(buf));
+	
+	return in;
 }
 
 ostream &operator << (ostream & out, const PassengerData & val)
 {
-	out << val.getFirstName() << " " << val.getLastName << ", " << val.getReservationNum() << ", "
+	out << val.getFirstName() << " " << val.getLastName() << ", " << val.getReservationNum() << ", "
 		<< val.getMembership() << ", " << val.getFlightNum();
+		
+	return out;
 }
