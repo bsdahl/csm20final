@@ -11,8 +11,8 @@ private:
 	std::vector<PassengerData> seatMap;
 	FlightData(const FlightData& other) { }
 public:
-	FlightData(size_t fn = 0, size_t miles = 0, size_t departTime = 0,
-		size_t arriveTime = 0, char toc = '', char frc = '')
+	FlightData(size_t fn, size_t miles, size_t departTime,
+		size_t arriveTime, char toc, char frc)
 		: flightNumber(fn), mileage(miles),	departTime(departTime),
 		arriveTime(arriveTime), toCity(toc), fromCity(frc) { }
 	void setFlightNumber(size_t fn) { flightNumber = fn; }
@@ -41,8 +41,6 @@ public:
 	}
 	bool addPassenger(const PassengerData& pd);
 	bool findPassenger(const PassengerData& pd);
-	std::vector<PassengerData> getSeatMap() { return seatMap; }
-	void setSeatMap(const std::vector<PassengerData>& sm) { seatMap = sm; }
 	PassengerData& removePassenger(const PassengerData& pd);
 
 };

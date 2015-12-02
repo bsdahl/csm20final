@@ -16,10 +16,22 @@ AirlineInterface.h is the main interface class for the program. Its responsibili
 	<tr>
 		<td>AirlineInterface.h</td>
 	<tr>
-		<td>data : FlightManager</td>
+		<td>-data : FlightManager</td>
 	</tr>
 	<tr>
-		<td>displayMenu()</td>
+		<td>+displayMenu() : boolean<br>
+		-displayAllPassengers() : boolean<br>
+		-displayPassengersTo( city : char ) : boolean<br>
+		-displayPassengersFrom( city : char ) : boolean<br>
+		-displayPassengersOnFlt( flight : size_t ) : boolean<br>
+		-displayWaitFlight( flight : size_t) : boolean<br>
+		-displayWaitAll() : boolean<br>
+		-displayAllFlights() : boolean<br>
+		-displayAllFlightsPassengers() : boolean<br>
+		-searchPassenger( passenger : string ) : boolean<br>
+		-searchFlight( flight : size_t ) : boolean<br>
+		-getCityInput() : char<br>
+		-getFlightInput() : size_t</td>
 	</tr>
 </table>
 
@@ -44,18 +56,29 @@ FlightManager.h is the main data class. It is responsible for holding AVL trees 
 
 ###FlightData.h
 
+FlightData.h class is a data class that holds all the data fields associated with a Flight.
+
 <table>
 	<tr>
 		<td>FlightData.h</td>
 	<tr>
-		<td></td>
+		<td>MAX_PASSENGERS : const size_t<br>
+		flightNumber : size_t<br>
+		mileage : size_t<br>
+		departTime : size_t<br>
+		arriveTime : size_t<br>
+		toCity : char<br>
+		fromCity : char<br>
+		seatMap : vector&lt;PassengerData&gt;</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td>FlightData()</td>
 	</tr>
 </table>
 
 ###PassengerData.h
+
+PassengerData.h class is a data class that holds all the data fields associated with a Passenger.
 
 <table>
 	<tr>
