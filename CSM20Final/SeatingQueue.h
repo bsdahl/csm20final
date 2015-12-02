@@ -41,6 +41,7 @@ private:
 	///////////////////////////////
 	// Private Utility Functions //
 	///////////////////////////////
+	void queueCurrentPassengers();
 
 public:
 	////////////////////////////
@@ -54,12 +55,11 @@ public:
 	bool push(const PassengerData& newPassenger);
 	void pop() { seatQueue.pop(); }
 	void setFlight(FlightData& aFlight);
-	void queueCurrentPassengers();
 	bool empty() { return seatQueue.empty(); }
 	bool isFull() { return seatQueue.size() > MAX_SEATS; }
 	void inputFlight(const FlightData& aFlight);
 	void clear();
-	std::vector<PassengerData> finalizeSeating();
+	void finalizeSeating();
 };
 
 
