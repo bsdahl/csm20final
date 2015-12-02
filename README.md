@@ -31,9 +31,9 @@ FlightManager.h is the main data class. It is responsible for holding AVL trees 
 	<tr>
 		<td>AirlineInterface.h</td>
 	<tr>
-		<td>passengerList : AVLTree<PassengerData><br>
-		flightList : AVLTree<FlightData><br>
-		waitList : AVLTree<PassengerData><br>
+		<td>passengerList : AVLTree&lt;PassengerData&gt;<br>
+		flightList : AVLTree&lt;FlightData&gt;<br>
+		waitList : AVLTree&lt;PassengerData&gt;<br>
 		flightMap : FlightMap</td>
 	</tr>
 	<tr>
