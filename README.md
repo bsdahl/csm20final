@@ -10,27 +10,35 @@ We all worked together to create a design plan for the application. Strategies i
 
 ###AirlineInterface.h
 
+AirlineInterface.h is the main interface class for the program. Its responsibilities are to hold the FlightManager data member, and provide input/output interface for the program. displayMenu() is designed to be used in main inside a while loop. It returns false when the user wishes to quit. 
+
 <table>
 	<tr>
 		<td>AirlineInterface.h</td>
 	<tr>
-		<td></td>
+		<td>data : FlightManager</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td>displayMenu()</td>
 	</tr>
 </table>
 
 ###FlightManager.h
 
+FlightManager.h is the main data class. It is responsible for holding AVL trees of PassengerData objects and FlightData objects. It's constructor reads the input files and fills the trees. The constructor also calculates the distances between airports and calculates the seatmaps for each flight and the waitlist. FlightManager.h also provides traversal functions to the AirlineInterface.h class for the private data members.
+
 <table>
 	<tr>
 		<td>AirlineInterface.h</td>
 	<tr>
-		<td></td>
+		<td>passengerList : AVLTree<PassengerData><br>
+		flightList : AVLTree<FlightData><br>
+		waitList : AVLTree<PassengerData><br>
+		flightMap : FlightMap</td>
 	</tr>
 	<tr>
-		<td></td>
+		<td>FlightManager()<br>
+		</td>
 	</tr>
 </table>
 
