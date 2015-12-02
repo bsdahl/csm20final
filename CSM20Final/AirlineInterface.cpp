@@ -101,51 +101,76 @@ bool AirlineInterface::displayMenu()
     return true;
 }
 
+// Traverses the Passenger Tree and outputs all passengers
 bool AirlineInterface::displayAllPassengers()
 {
     return true;
 }
 
+// Traversals the Passenger tree, gets the flightreservation number
+// traversals the FlightData tree to retrieve that flight, checks the From
+// city. It match, output the passenger. This is an expensive operation,
+// but it expected of a relationship database design where a lookup
+// requires a join of two tables.
 bool AirlineInterface::displayPassengersTo(string city)
 {
     return true;
 }
 
+// Traversals the Passenger tree, gets the flightreservation number
+// traversals the FlightData tree to retrieve that flight, checks the From
+// city. It match, output the passenger. This is an expensive operation,
+// but it expected of a relationship database design where a lookup
+// requires a join of two tables.
 bool AirlineInterface::displayPassengersFrom(string city)
 {
     return true;
 }
 
+// Traversals the flight tree, selects matching flight, and outputs
+// the SeatMap vector
 bool AirlineInterface::displayPassengersOnFlt(size_t flight)
 {
     return true;
 }
 
+// Traversals the WaitList tree and outputs each passenger that
+// matches the flight number.
 bool AirlineInterface::displayWaitFlight(size_t flight)
 {
     return true;
 }
 
+// Traversals the WaitList tree and outputs all passengers
 bool AirlineInterface::displayWaitAll()
 {
     return true;
 }
 
+// Traversals Flight Tree and outputs each flight
 bool AirlineInterface::displayAllFlights()
 {
     return true;
 }
 
+// Traversals Flight Tree and outputs each flight followed
+// by its Passenger List
 bool AirlineInterface::displayAllFlightsPassengers()
 {
     return true;
 }
 
+// Accepts a string, determines whether the string is a
+// ReservationNumber or a Name. Whether that name is one
+// word or two words. It then searches the PassengerTree
+// for match against the ReservationNumber OR both FirstName
+// and LastName OR one name is either FirstName or LastName
 bool AirlineInterface::searchPassenger(string passenger)
 {
     return true;
 }
 
+// Accepts size_t, searches flight tree for matching flightNumber
 bool AirlineInterface::searchFlight(size_t flight)
 {
     return true;
