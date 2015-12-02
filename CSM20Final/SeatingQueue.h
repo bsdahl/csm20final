@@ -36,6 +36,7 @@ private:
 
 	std::priority_queue<PassengerData, std::vector<PassengerData>, compareMembership > seatQueue;
 	AVLTree<PassengerData>* waitListPtr;	// A pointer to the AVL tree used to store waitlisted passengers
+	FlightData* flightPtr;		// A pointer to the FlightData object that passengers are to be added to.
 
 	///////////////////////////////
 	// Private Utility Functions //
@@ -45,16 +46,19 @@ public:
 	////////////////////////////
 	// Constructor/Destructor //
 	////////////////////////////
-	SeatingQueue(AVLTree<PassengerData>& waitList) { waitListPtr = &waitList; }
+	SeatingQueue(AVLTree<PassengerData>& waitList) : waitListPtr(&waitList), flightPtr(nullptr) { }	// requires an AVL tree of passengers in which to store excess passengers
 
 	////////////////////////////////
 	// Public Interface Functions //
 	////////////////////////////////
-	void push(const PassengerData& newPassenger) { seatQueue.push(newPassenger); }
+	bool push(const PassengerData& newPassenger);
 	void pop() { seatQueue.pop(); }
+	void setFlight(FlightData& aFlight);
+	void queueCurrentPassengers();
 	bool empty() { return seatQueue.empty(); }
 	bool isFull() { return seatQueue.size() > MAX_SEATS; }
-	void inputFlight(const FlightData& aFlight) {}
+	void inputFlight(const FlightData& aFlight);
+	void clear();
 	std::vector<PassengerData> finalizeSeating();
 };
 

@@ -39,25 +39,19 @@ void FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)
 {
 	passengerList.add(passenger);	// Add passenger to list.
 	
-	FLIGHT_DATA_TYPE temp;
-	temp.setFlightNumber(passenger.getFlightNum());	// Create a temporary flight object using the passenger's given flight number; used for searching available flights.
-	if (flightList.contains(temp))										// If the flight exists, do the following:
+	FLIGHT_DATA_TYPE flightBuffer;
+	flightBuffer.setFlightNumber(passenger.getFlightNum());	// Create a temporary flight object using the passenger's given flight number; used for searching available flights.
+	if (flightList.contains(flightBuffer))										// If the flight exists, do the following:
 	{
-		temp = flightList.getEntry(temp);					// Set temp to the matching flight.
-		flightList.remove(temp);							// Remove the matching flight from the flight list.
+		flightBuffer = flightList.getEntry(flightBuffer);					// Set temp to the matching flight.
+		flightList.remove(flightBuffer);							// Remove the matching flight from the flight list.
 		// TODO: put all current passengers into priority queue, add new passenger to queue, then re-add passengers to flight.
 		// Put all current passengers into priority queue.
-		std::vector<PassengerData> seatVector = temp.getSeatMap();
-		std::reverse(seatVector.begin(), seatVector.end());
-		while (!seatVector.empty())
-		{
-			seatQueue.push(seatVector.back());
-			seatVector.pop_back();
-		}
+		seatQueue.inputFlight(flightBuffer);
 		// Add new passenger to queue.
 		seatQueue.push(passenger);
 		// Create new seating vector
-		seatVector = seatQueue.finalizeSeating();
+		// seatVector = seatQueue.finalizeSeating();
 		// Re-add all passengers to flight.
 	}
 }	// End addPassenger
