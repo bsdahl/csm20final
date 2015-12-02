@@ -21,6 +21,6 @@ public:
 	BinaryNode<Type>* getLeft() const { return left; }	// Return address of left child
 	BinaryNode<Type>* getRight() const { return right; }	// Return address of right child
 
-	bool isLeaf() { return ((left == nullptr) && (right == nullptr)) };
+    bool isLeaf() { return ((left == nullptr) && (right == nullptr)); };
 };
 #endif
