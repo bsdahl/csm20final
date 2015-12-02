@@ -8,11 +8,44 @@ We all worked together to create a design plan for the application. Strategies i
 
 ##Project Architecture
 
-###ArlineInterface.h
+###AirlineInterface.h
+
+<table>
+	<tr>
+		<td>AirlineInterface.h</td>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+</table>
 
 ###FlightManager.h
 
+<table>
+	<tr>
+		<td>AirlineInterface.h</td>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+</table>
+
 ###FlightData.h
+
+<table>
+	<tr>
+		<td>FlightData.h</td>
+	<tr>
+		<td></td>
+	</tr>
+	<tr>
+		<td></td>
+	</tr>
+</table>
 
 ###PassengerData.h
 
