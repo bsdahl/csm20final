@@ -81,7 +81,7 @@ const bool PassengerData::operator ==(const PassengerData& rhs)
 			check = true;
 		if ((seatClass != 0 && rhs.seatClass != 0) && (seatClass == rhs.seatClass))
 			check = true;
-		if ((flightNum != 0 && rhs.seatClass != 0) && (flightNum == rhs.flightNum))
+		if ((flightNum != 0 && rhs.flightnum != 0) && (flightNum == rhs.flightNum))
 			check = true;
 	}
 	else if (reservationNum == rhs.reservationNum)
