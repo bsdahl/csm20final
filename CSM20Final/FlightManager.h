@@ -26,7 +26,7 @@ public:
 	/////////////////////////////
 	// Constructors/Destructor //
 	/////////////////////////////
-	FlightManager() {}
+	FlightManager();
 	~FlightManager() {}
 
 	////////////////////////////////
@@ -44,7 +44,7 @@ private:
 	AVLTree<PASS_DATA_TYPE> passengerList;
 	AVLTree<FLIGHT_DATA_TYPE> flightList;
 	AVLTree<PASS_DATA_TYPE> waitList;
-	//flightMap Map;
+	flightMap<char> Map;
 	ListSearch<PASS_DATA_TYPE> passengerSearch;
 	ListSearch<FLIGHT_DATA_TYPE> flightSearch;
 
@@ -52,6 +52,7 @@ private:
 	// Private Utility Functions //
 	///////////////////////////////
 	void calculateMileage(FLIGHT_DATA_TYPE&);
+	void populateMap(); 
 };
 
 

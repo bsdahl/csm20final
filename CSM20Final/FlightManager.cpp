@@ -9,6 +9,12 @@
 
 #include "FlightManager.h"
 
+// Constructor
+FlightManager::FlightManager()
+{
+	populateMap(); // Gets the map up
+}
+
 void FlightManager::calculateMileage(FLIGHT_DATA_TYPE& flight)
 {
 	//std::string origin = flight.getFrom();					// Get origin node.
@@ -74,3 +80,27 @@ void FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)
 		// Re-add all passengers to flight.
 	}
 }	// End addPassenger
+
+/* populateMap()
+Will create the map by adding the vertices (cities) with edges
+input: none
+output: none
+*/
+void FlightManager::populateMap()
+{
+	// Hardcoded map data
+	Map.add('B', 'A', 142);
+	Map.add('A', 'C', 170);
+	Map.add('C', 'D', 114);
+	Map.add('D', 'E', 93);
+	Map.add('D', 'M', 209);
+	Map.add('M', 'N', 208);
+	Map.add('N', 'P', 134);
+	Map.add('P', 'O', 193);
+	Map.add('E', 'F', 155);
+	Map.add('F', 'I', 160);
+	Map.add('F', 'G', 184);
+	Map.add('I', 'G', 83);
+	Map.add('I', 'L', 88);
+	Map.add('I', 'J', 73);
+}
