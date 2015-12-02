@@ -22,3 +22,15 @@ PassengerData& FlightData::removePassenger(const PassengerData& pd) {
 		}
 	}
 }
+
+std::ostream& operator<<(std::ostream & out, const FlightData& fd) {
+	out << "  " << std::setw(4) << std::setfill('0')
+		<< fd.flightNumber << "  " << std::setfill(' ')
+		<< std::setw(12) << std::left << fd.fromCity << "  "
+		<< std::setw(12) << fd.toCity << "  " << std::right
+		<< std::setw(2) << std::setfill('0') << fd.departTime / 100
+		<< ':' << std::setw(2) << fd.departTime % 100 << "  "
+		<< std::setw(2) << fd.arriveTime/ 100
+		<< ':' << std::setw(2) << fd.arriveTime % 100 << '\n';
+	return out;
+}
