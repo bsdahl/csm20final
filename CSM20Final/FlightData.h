@@ -8,10 +8,9 @@
 class FlightData {
 private:
 	static const size_t MAX_PASSENGERS = 40;
-	size_t flightNumber, mileage, departTime, arriveTime;
+	size_t flightNumber, mileage, departTime, arriveTime, bounced = 0;
 	char toCity, fromCity;
 	std::vector<PassengerData> seatMap;
-	FlightData(const FlightData& other) { }
 public:
 	FlightData(size_t fn = 0, size_t miles = 0, size_t departTime = 0,
 		size_t arriveTime = 0, char toc = '0', char frc = '0')
@@ -23,6 +22,7 @@ public:
 	void setArriveTime(size_t time) { arriveTime = time; }
 	void setToCity(char city) { toCity = city; }
 	void setFromCity(char city) { fromCity = city; }
+	void incBounceCount() { bounced++; }
 	size_t getMaxPassengers() { return MAX_PASSENGERS; }
 	size_t getFlightNumber() { return flightNumber; }
 	size_t getMileage() { return mileage; }
@@ -32,6 +32,7 @@ public:
 	char getFromCity() { return fromCity; }
 	size_t fullSeats() { return seatMap.size(); }
 	size_t freeSeats() { return MAX_PASSENGERS - seatMap.size(); }
+	size_t getBounceCount() { return bounced; }
 	bool operator==(const FlightData& right) const {
 		return flightNumber == right.flightNumber;
 	}
