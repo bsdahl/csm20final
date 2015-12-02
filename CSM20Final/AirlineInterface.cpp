@@ -26,6 +26,7 @@ bool AirlineInterface::displayMenu()
     cout << "Q. Quit.\n";
     cout << "Enter your selection: ";
     
+	cin.ignore(cin.rdbuf()->in_avail());
     cin >> option;
     cout << endl;
     
@@ -36,30 +37,22 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {case '2':
-            string city;
-            cout << "Enter Destination City: ";
-            cin >> city;
+			char city = getCityInput();
             displayPassengersTo(city);
             break;}
             
         {case '3':
-            string city;
-            cout << "Enter Origin City: ";
-            cin >> city;
+			char city = getCityInput();
             displayPassengersFrom(city);
             break;}
             
         {case '4':
-            size_t flight;
-            cout << "Enter Flight Number: ";
-            cin >> flight;
+			size_t flight = getFlightInput();
             displayPassengersOnFlt(flight);
             break;}
             
         {case '5':
-            size_t flight;
-            cout << "Enter Flight Number: ";
-            cin >> flight;
+			size_t flight = getFlightInput();
             displayWaitFlight(flight);
             break;}
             
@@ -83,9 +76,7 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {case '0':
-            size_t flight;
-            cout << "Enter Flight Number: ";
-            cin >> flight;
+			size_t flight = getFlightInput();
             searchFlight(flight);
             break;}
             
@@ -101,77 +92,100 @@ bool AirlineInterface::displayMenu()
     return true;
 }
 
-// Traverses the Passenger Tree and outputs all passengers
 bool AirlineInterface::displayAllPassengers()
 {
     return true;
 }
 
-// Traversals the Passenger tree, gets the flightreservation number
-// traversals the FlightData tree to retrieve that flight, checks the From
-// city. It match, output the passenger. This is an expensive operation,
-// but it expected of a relationship database design where a lookup
-// requires a join of two tables.
-bool AirlineInterface::displayPassengersTo(string city)
+bool AirlineInterface::displayPassengersTo(char city)
 {
     return true;
 }
 
-// Traversals the Passenger tree, gets the flightreservation number
-// traversals the FlightData tree to retrieve that flight, checks the From
-// city. It match, output the passenger. This is an expensive operation,
-// but it expected of a relationship database design where a lookup
-// requires a join of two tables.
-bool AirlineInterface::displayPassengersFrom(string city)
+bool AirlineInterface::displayPassengersFrom(char city)
 {
     return true;
 }
 
-// Traversals the flight tree, selects matching flight, and outputs
-// the SeatMap vector
 bool AirlineInterface::displayPassengersOnFlt(size_t flight)
 {
     return true;
 }
 
-// Traversals the WaitList tree and outputs each passenger that
-// matches the flight number.
 bool AirlineInterface::displayWaitFlight(size_t flight)
 {
     return true;
 }
 
-// Traversals the WaitList tree and outputs all passengers
 bool AirlineInterface::displayWaitAll()
 {
     return true;
 }
 
-// Traversals Flight Tree and outputs each flight
 bool AirlineInterface::displayAllFlights()
 {
     return true;
 }
 
-// Traversals Flight Tree and outputs each flight followed
-// by its Passenger List
 bool AirlineInterface::displayAllFlightsPassengers()
 {
     return true;
 }
 
-// Accepts a string, determines whether the string is a
-// ReservationNumber or a Name. Whether that name is one
-// word or two words. It then searches the PassengerTree
-// for match against the ReservationNumber OR both FirstName
-// and LastName OR one name is either FirstName or LastName
 bool AirlineInterface::searchPassenger(string passenger)
 {
     return true;
 }
 
-// Accepts size_t, searches flight tree for matching flightNumber
 bool AirlineInterface::searchFlight(size_t flight)
 {
     return true;
+}
+
+char AirlineInterface::getCityInput()
+{
+	string city;
+
+	do
+	{
+		cout << "Enter Destination City: ";
+		cin >> city;
+
+		if(city.length > 1)
+			cout << "That is not a valid format for a city.\n"
+				<< "Please enter a single character city name.\n";
+	} while (city.length > 1);
+
+	return city[0];
+}
+
+size_t AirlineInterface::getFlightInput()
+{
+	string line;
+	size_t flight;
+	bool successful;
+	char c;
+
+	do {
+		successful = true; //set flag to true to prevent infinite loop
+
+		cout << "Enter Flight Number: ";
+		cin >> line;
+
+		stringstream input(line);
+
+		if (!(input >> flight)) //input is not of type size_t
+			successful = false;
+		else if (flight == 0) //0 is used to signify that flightNumber should not be compared in SearchFlightData class
+			successful = false;
+
+		if (input >> c) //if input was valid, but input remains in the stringstream
+			successful = false; //then reject all input and ask user to reenter flight num
+
+		if (!successful)
+			cout << "That is not a valid format for a flight number.\n"
+			<< "Please enter only one non-zero, non-negative integer number.\n";
+	} while (!successful);
+
+	return flight;
 }
