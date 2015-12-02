@@ -41,15 +41,19 @@ FlightManager.h is the main data class. It is responsible for holding AVL trees 
 
 <table>
 	<tr>
-		<td>AirlineInterface.h</td>
+		<td>FlightManager.h</td>
 	<tr>
-		<td>passengerList : AVLTree&lt;PassengerData&gt;<br>
-		flightList : AVLTree&lt;FlightData&gt;<br>
-		waitList : AVLTree&lt;PassengerData&gt;<br>
-		flightMap : FlightMap</td>
+		<td>-passengerList : AVLTree&lt;PassengerData&gt;<br>
+		-flightList : AVLTree&lt;FlightData&gt;<br>
+		-waitList : AVLTree&lt;PassengerData&gt;<br>
+		-flightMap : FlightMap</td>
 	</tr>
 	<tr>
-		<td>FlightManager()<br>
+		<td>+FlightManager()
+		+traversePassenger() : void<br>
+		+traverseFlight() : void<br>
+		+traverseWait() : void<br>
+		-readInput() : void<br>
 		</td>
 	</tr>
 </table>
@@ -62,17 +66,25 @@ FlightData.h class is a data class that holds all the data fields associated wit
 	<tr>
 		<td>FlightData.h</td>
 	<tr>
-		<td>MAX_PASSENGERS : const size_t<br>
-		flightNumber : size_t<br>
-		mileage : size_t<br>
-		departTime : size_t<br>
-		arriveTime : size_t<br>
-		toCity : char<br>
-		fromCity : char<br>
-		seatMap : vector&lt;PassengerData&gt;</td>
+		<td>-MAX_PASSENGERS : const size_t = 40<br>
+		-flightNumber : size_t<br>
+		-mileage : size_t<br>
+		-departTime : size_t<br>
+		-arriveTime : size_t<br>
+		-toCity : char<br>
+		-fromCity : char<br>
+		-seatMap : vector&lt;PassengerData&gt;</td>
 	</tr>
 	<tr>
-		<td>FlightData()</td>
+		<td>+FlightData( fn : size_t = 0, miles : size_t = 0, departTime : size_t = 0, arriveTime : size_t = 0, toc : char = '0', frc : char = '0' )<br>
+		+setFlightNumber( fn : size_t ) : void<br>
+		+setMileage( miles : size_t ) : void<br>
+		+setDepartTime( time : size_t ) : void<br>
+		+setArriveTime( time : size_t ) : void<br>
+		+setToCity( city : char ) : void<br>
+		+setFromCity( city : char ) : void<br>
+		+setFromCity( city : char ) : void<br>
+		</td>
 	</tr>
 </table>
 
@@ -85,25 +97,25 @@ PassengerData.h class is a data class that holds all the data fields associated 
 		<td>PassengerData.h</td>
 	<tr>
 		<td>firstName : string<br>
-lastName : string<br>
-seatClass : size_t<br>
-reservationNumber : size_t<br>
-flightNum : size_t</td>
+		lastName : string<br>
+		seatClass : size_t<br>
+		reservationNumber : size_t<br>
+		flightNum : size_t</td>
 	</tr>
 	<tr>
 		<td>PassengerData()<br>
-setFirstName()<br>
-setLastName()<br>
-setMembership()<br>
-setReservationNum()<br>
-setFlightNum()<br>
-getFirstName()<br>
-getLastName()<br>
-getMembership()<br>
-getReservationNum()<br>
-getFlightNum()<br>
-operator ==<br>
-operator ><br>
-operator <</td>
+		setFirstName()<br>
+		setLastName()<br>
+		setMembership()<br>
+		setReservationNum()<br>
+		setFlightNum()<br>
+		getFirstName()<br>
+		getLastName()<br>
+		getMembership()<br>
+		getReservationNum()<br>
+		getFlightNum()<br>
+		operator ==<br>
+		operator ><br>
+		operator <</td>
 	</tr>
 </table>
