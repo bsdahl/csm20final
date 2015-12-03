@@ -44,7 +44,7 @@ public:
 	}
 	bool addPassenger(const PassengerData& pd);
 	bool findPassenger(const PassengerData& pd);
-//	PassengerData& removePassenger(const PassengerData& pd);
+	PassengerData& removePassenger(const PassengerData& pd);
 	std::vector<PassengerData> getSeatMap() { return seatMap; }
 	void setSeatMap(const std::vector<PassengerData>& sm) { seatMap = sm; }
 	friend std::ostream& operator<<(std::ostream& out, const FlightData& fd);
