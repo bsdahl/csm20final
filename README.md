@@ -13,8 +13,7 @@ We all worked together to create a design plan for the application. Strategies i
 AirlineInterface.h is the main interface class for the program. Its responsibilities are to hold the FlightManager data member, and provide input/output interface for the program. displayMenu() is designed to be used in main inside a while loop. It returns false when the user wishes to quit. 
 
 <table>
-	<tr>
-		<td>AirlineInterface.h</td>
+	<tr>		<td>AirlineInterface.h</td>
 	<tr>
 		<td>-data : FlightManager</td>
 	</tr>
@@ -117,5 +116,47 @@ PassengerData.h class is a data class that holds all the data fields associated 
 		operator ==<br>
 		operator ><br>
 		operator <</td>
+	</tr>
+</table>
+
+###Graph.h
+
+*Graph* class is a weighted, undirected and connected graph, implemented as an adjacency list. The class is responsible 
+for representing the flight map, where the vertices will represent the cities, and the edges will represent the distance between the cities. Class is base class for *flightMap* class
+
+<table>
+	<tr>
+		<td>Graph.h</td>
+	<tr>
+		<td>-numVertices : int<br>
+		-numEdges : int<br>
+		-adjList : map&lt;ItemType, map&lt;ItemType, int&gt;&gt;<br>
+		-iter : map&lt;ItemType, int&gt::const_iterator<br>
+		-iter2 : map&lt;ItemType, map&lt;ItemType, int&gt;&gt;::const_iterator</td>
+	</tr>
+	<tr>
+		<td>+getNumVertices() const : int<br>
+		+getNumEdges() const : int<br>
+		+getVertex(vertex : ItemType) : ItemType<br>
+		+getWeight(startVertex : ItemType, endVertex: ItemType) : int<br>
+		+add(startVertex : ItemType, endVertex : Itemtype, weight : int) : bool<br>
+		+remove(startVertex : ItemType, endVertex : ItemType) : bool<br>
+		+isEmpty() : bool<br>
+		+breadthFirstTraversal(startVertex : Itemtype, visit(vertex : Itemtype) : void) : void<br>
+	</tr>
+</table>
+
+###flightMap.h
+
+*flightMap* class inherits from *Graph* class. The class was created to implement Dijkstra's algorithm to find the
+shortest path between two vertices(cities) whilst maintaining data independence of the class *Graph*.   
+
+<table>
+	<tr>
+		<td>flightMap.h</td>
+
+	<tr>
+		<td>+shortestPath(startVertex : ItemType, endVertex : ItemType) : size_t<br>
+	
 	</tr>
 </table>
