@@ -12,6 +12,8 @@
 FlightManager::FlightManager(const std::string& passengerFile, const std::string& flightFile)
 : seatQueue(waitList)
 {
+	populateMap();  // Gets the map up
+
 	std::string filename = flightFile;
 	std::ifstream input;
 	// TODO: have FlightManager read files and put data into trees.
@@ -34,7 +36,7 @@ FlightManager::FlightManager(const std::string& passengerFile, const std::string
 	{
 		input.close();
 		input.clear();
-		std::cout << "Flight data file \"" << passengerFile << "\" is corrupted or invalid. Please enter a valid file name: ";
+		std::cout << "Passenger data file \"" << passengerFile << "\" is corrupted or invalid. Please enter a valid file name: ";
 		std::cin >> filename;
 		input.open(filename);
 	}
@@ -88,12 +90,9 @@ void FlightManager::readPassengersFromFile(std::ifstream& inputStream)
 
 void FlightManager::calculateMileage(FLIGHT_DATA_TYPE& flight)
 {
-	//std::string origin = flight.getFrom();					// Get origin node.
-	//std::string destination = flight.getTo();					// Get end node.
+	// Gets from-and-to cities and determines the shortest path using shortestPath (from flightMap)
+	flight.setMileage(Map.shortestPath(flight.getFromCity(), flight.getToCity()));
 
-	//size_t distance = Map.shortestPath(origin,desitnation);	// Get the shortest path between the nodes.
-
-	//flight.setMileage(distance);								// Set flight mileage to distance.
 }	// End calculateMileage;
 
 void FlightManager::addFlight(FLIGHT_DATA_TYPE& flight)
@@ -133,3 +132,29 @@ bool FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)	// Will not al
 		std::cout << "\n\nError: Passenger's flight number does not match any existing flights. Passenger not added to list.\n\n";
 	}
 }	// End addPassenger
+
+/* populateMap()
+Will create the map by adding the vertices (cities) with
+edges
+input: none
+output: none
+*/
+void FlightManager::populateMap()
+{
+	// parameters are: the two vertices and the edge weight
+	Map.add('B', 'A', 142);
+	Map.add('A', 'C', 170);
+	Map.add('C', 'D', 114);
+	Map.add('D', 'E', 93);
+	Map.add('D', 'M', 209);
+	Map.add('M', 'N', 208);
+	Map.add('N', 'P', 134);
+	Map.add('P', 'O', 193);
+	Map.add('E', 'F', 155);
+	Map.add('F', 'I', 160);
+	Map.add('F', 'G', 184);
+	Map.add('I', 'G', 83);
+	Map.add('I', 'L', 88);
+	Map.add('I', 'J', 73);
+
+}  // end populateMap()

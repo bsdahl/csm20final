@@ -58,7 +58,7 @@ private:
 	AVLTree<PASS_DATA_TYPE> passengerList;
 	AVLTree<FLIGHT_DATA_TYPE> flightList;
 	AVLTree<PASS_DATA_TYPE> waitList;
-	//flightMap Map;
+	flightMap<char> Map;
 	SeatingQueue seatQueue;
 
 
@@ -68,6 +68,7 @@ private:
 	void calculateMileage(FLIGHT_DATA_TYPE&);
 	void readFlightsFromFile(std::ifstream&);
 	void readPassengersFromFile(std::ifstream&);
+	void populateMap();
 
 };
 
