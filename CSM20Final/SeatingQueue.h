@@ -52,8 +52,7 @@ public:
 	////////////////////////////////
 	// Public Interface Functions //
 	////////////////////////////////
-	bool push(const PassengerData& newPassenger);
-	void pop() { seatQueue.pop(); }
+	bool add(const PassengerData& newPassenger);
 	void setFlight(FlightData& aFlight);
 	bool empty() { return seatQueue.empty(); }
 	bool isFull() { return seatQueue.size() > MAX_SEATS; }

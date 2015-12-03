@@ -12,8 +12,78 @@
 FlightManager::FlightManager(const std::string& passengerFile, const std::string& flightFile)
 : seatQueue(waitList)
 {
+	std::string filename = flightFile;
+	std::ifstream input;
 	// TODO: have FlightManager read files and put data into trees.
-}
+	// Read flight data file and add all flights to list.
+	input.open(filename);
+	while (!input.good())	// input validation.
+	{
+		input.close();
+		input.clear();
+		std::cout << "Flight data file \"" << flightFile << "\" is corrupted or invalid. Please enter a valid file name: ";
+		std::cin >> filename;
+		input.open(filename);
+	}
+	readFlightsFromFile(input);
+
+	// Read passenger data file and add all passengers to list/flights.
+	filename = passengerFile;
+	input.open(filename);
+	while (!input.good())	// input validation.
+	{
+		input.close();
+		input.clear();
+		std::cout << "Flight data file \"" << passengerFile << "\" is corrupted or invalid. Please enter a valid file name: ";
+		std::cin >> filename;
+		input.open(filename);
+	}
+	readPassengersFromFile(input);
+}	// End constructor
+
+void FlightManager::readFlightsFromFile(std::ifstream& inputStream)
+{
+	std::string fieldBuffer;
+	FlightData newFlight;
+	while (!inputStream.eof())
+	{
+		std::getline(inputStream, fieldBuffer, ',');	// Flight number
+		newFlight.setFlightNumber(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+		std::getline(inputStream, fieldBuffer, ',');	// To City
+		newFlight.setToCity(fieldBuffer.c_str()[0]);
+		std::getline(inputStream, fieldBuffer, ',');	// From City
+		newFlight.setFromCity(fieldBuffer.c_str()[0]);
+		std::getline(inputStream, fieldBuffer, ',');	// Departure Time
+		newFlight.setDepartTime(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+		std::getline(inputStream, fieldBuffer, ',');	// Arrival Time
+		newFlight.setArriveTime(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+
+		addFlight(newFlight);		// Add new flight to list.
+	}
+	inputStream.close();
+}	// End readFlightsFromFile
+
+void FlightManager::readPassengersFromFile(std::ifstream& inputStream)
+{
+	std::string fieldBuffer;
+	PassengerData newPassenger;
+	while (!inputStream.eof())
+	{
+		std::getline(inputStream, fieldBuffer, ',');	// Reservation number
+		newPassenger.setReservationNum(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+		std::getline(inputStream, fieldBuffer, ',');	// First name
+		newPassenger.setFirstName(fieldBuffer);
+		std::getline(inputStream, fieldBuffer, ',');	// Last name
+		newPassenger.setLastName(fieldBuffer);
+		std::getline(inputStream, fieldBuffer, ',');	// Flight number
+		newPassenger.setFlightNum(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+		std::getline(inputStream, fieldBuffer, ',');	// Membership value
+		newPassenger.setMembership(std::strtol(fieldBuffer.c_str(), nullptr, 10));
+
+		addPassenger(newPassenger);		// Add new passenger to list.
+	}
+	inputStream.close();
+}	// End readPassengersFromFile
 
 
 void FlightManager::calculateMileage(FLIGHT_DATA_TYPE& flight)
@@ -29,29 +99,34 @@ void FlightManager::calculateMileage(FLIGHT_DATA_TYPE& flight)
 void FlightManager::addFlight(FLIGHT_DATA_TYPE& flight)
 {
 	calculateMileage(flight);	// calculate and set the mileage of the new flight.
-	flightList.add(flight);		// add new flight to AVL tree.
-
-	// TODO: have flight manager search existing passengers to see if they are on new flight, then add them according to flight queue
-	
+	flightList.add(flight);		// add new flight to AVL tree.	
 }	// End addFlight
 
-void FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)
+bool FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)	// Will not allow passengers to be added to list unless a matching flight number exists in the flight list.
 {
-	passengerList.add(passenger);	// Add passenger to list.
 	
 	FLIGHT_DATA_TYPE flightBuffer;
 	flightBuffer.setFlightNumber(passenger.getFlightNum());	// Create a temporary flight object using the passenger's given flight number; used for searching available flights.
-	if (flightList.contains(flightBuffer))										// If the flight exists, do the following:
+	if (flightList.contains(flightBuffer))					// If the flight exists, do the following:
 	{
-		flightBuffer = flightList.getEntry(flightBuffer);					// Set temp to the matching flight.
+		passengerList.add(passenger);	// Add passenger to list.
+
+		flightBuffer = flightList.getEntry(flightBuffer);			// Set temp to the matching flight.
 		flightList.remove(flightBuffer);							// Remove the matching flight from the flight list.
-		// TODO: put all current passengers into priority queue, add new passenger to queue, then re-add passengers to flight.
+
 		// Put all current passengers into priority queue.
 		seatQueue.inputFlight(flightBuffer);
+		
 		// Add new passenger to queue.
-		seatQueue.push(passenger);
-		// Create new seating vector
-		// seatVector = seatQueue.finalizeSeating();
-		// Re-add all passengers to flight.
+		seatQueue.add(passenger);
+		
+		// Create new seating vector and add passengers to flight/waitlist
+		seatQueue.finalizeSeating();
+
+		return true;
+	}
+	else
+	{
+		std::cout << "\n\nError: Passenger's flight number does not match any existing flights. Passenger not added to list.\n\n";
 	}
 }	// End addPassenger

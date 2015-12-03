@@ -13,6 +13,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <sstream>
 #include <queue>
 #include <string>
 
@@ -49,7 +50,7 @@ public:
 	template<class Function>
 	void traverseWait(Function& fxn) { waitList.inorderTraverse(fxn); }
 
-	void addPassenger(const PASS_DATA_TYPE& passenger);
+	bool addPassenger(const PASS_DATA_TYPE&);
 	void addFlight(FLIGHT_DATA_TYPE& flight);
 
 private:
@@ -67,6 +68,10 @@ private:
 	// Private Utility Functions //
 	///////////////////////////////
 	void calculateMileage(FLIGHT_DATA_TYPE&);
+	void seatPassengers(FLIGHT_DATA_TYPE&);
+	void readFlightsFromFile(std::ifstream&);
+	void readPassengersFromFile(std::ifstream&);
+
 };
 
 
