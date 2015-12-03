@@ -35,14 +35,12 @@ public:
 	// Constructors/Destructor //
 	/////////////////////////////
 	FlightManager() : seatQueue(waitList) {}
-	FlightManager(const std::string&, const std::string&);
+	FlightManager(const std::string& passengerFile, const std::string& flightFile);
 	~FlightManager() {}
 
 	////////////////////////////////
 	// Public Interface Functions //
 	////////////////////////////////
-//	bool search(const PASS_DATA_TYPE&);		// Replaced with traversal proxy
-//	bool search(const FLIGHT_DATA_TYPE&);	// Replaced with traversal proxy
 	template<class Function>
 	void traversePassenger(Function& fxn) { passengerList.inorderTraverse(fxn); }
 	template<class Function>
@@ -68,7 +66,6 @@ private:
 	// Private Utility Functions //
 	///////////////////////////////
 	void calculateMileage(FLIGHT_DATA_TYPE&);
-	void seatPassengers(FLIGHT_DATA_TYPE&);
 	void readFlightsFromFile(std::ifstream&);
 	void readPassengersFromFile(std::ifstream&);
 

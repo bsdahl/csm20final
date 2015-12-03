@@ -14,6 +14,7 @@ bool FlightData::findPassenger(const PassengerData& pd) {
 	return false;
 }
 
+#if 0
 PassengerData& FlightData::removePassenger(const PassengerData& pd) {
 	for (size_t i = 0; i < seatMap.size(); ++i) {
 		if (seatMap[i] == pd) {
@@ -22,6 +23,7 @@ PassengerData& FlightData::removePassenger(const PassengerData& pd) {
 		}
 	}
 }
+#endif
 
 std::ostream& operator<<(std::ostream & out, const FlightData& fd) {
 	out << "  " << std::setw(4) << std::setfill('0')

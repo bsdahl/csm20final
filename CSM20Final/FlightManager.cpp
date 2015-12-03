@@ -107,21 +107,24 @@ bool FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)	// Will not al
 	
 	FLIGHT_DATA_TYPE flightBuffer;
 	flightBuffer.setFlightNumber(passenger.getFlightNum());	// Create a temporary flight object using the passenger's given flight number; used for searching available flights.
-	if (flightList.contains(flightBuffer))					// If the flight exists, do the following:
+	if (flightList.contains(flightBuffer))					// If the flight number exists, do the following:
 	{
 		passengerList.add(passenger);	// Add passenger to list.
 
-		flightBuffer = flightList.getEntry(flightBuffer);			// Set temp to the matching flight.
+		flightBuffer = flightList.getEntry(flightBuffer);			// Set buffer to the matching flight.
 		flightList.remove(flightBuffer);							// Remove the matching flight from the flight list.
 
 		// Put all current passengers into priority queue.
-		seatQueue.inputFlight(flightBuffer);
+		seatQueue.setFlight(flightBuffer);
 		
 		// Add new passenger to queue.
 		seatQueue.add(passenger);
 		
 		// Create new seating vector and add passengers to flight/waitlist
 		seatQueue.finalizeSeating();
+
+		// re-add flight to list
+		flightList.add(flightBuffer);
 
 		return true;
 	}

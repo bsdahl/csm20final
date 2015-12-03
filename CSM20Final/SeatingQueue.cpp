@@ -38,7 +38,7 @@ bool SeatingQueue::add(const PassengerData& newPassenger)
 
 	seatQueue.push(newPassenger);	// enqueue the new passenger
 	return true;
-}	// End push
+}	// End add
 
 void SeatingQueue::finalizeSeating()
 {
