@@ -13,7 +13,7 @@ class flightMap : public Graph<ItemType>
 {
 
 public:
-	flightMap() : Graph() {}  // Constructor -> inline function 
+	flightMap() : Graph<ItemType>() {}  // Constructor -> inline function
 
 	size_t shortestPath(const ItemType & start, const ItemType & end);
 };

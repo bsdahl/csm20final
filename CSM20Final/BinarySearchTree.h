@@ -2,6 +2,7 @@
 #define BIN_SEARCH_TREE
 
 #include "BinaryNodeTree.h"
+#include "NotFoundException.h"
 
 template<class Type>
 class BinarySearchTree : public BinaryNodeTree<Type>
@@ -11,8 +12,8 @@ public:
 	// Constructors/Destructor //
 	/////////////////////////////
 	BinarySearchTree() : BinaryNodeTree<Type>() { }	// Default Contructor for BinarySearchTree.
-	BinarySearchTree(const Type& rootItem) : BinaryNodeTree(rootItem) { }	// Overloaded constructor 1
-	BinarySearchTree(const BinarySearchTree<Type>& aTree) : BinaryNodeTree(aTree) { }	// Copy constructor
+	BinarySearchTree(const Type& rootItem) : BinaryNodeTree<Type>(rootItem) { }	// Overloaded constructor 1
+	BinarySearchTree(const BinarySearchTree<Type>& aTree) : BinaryNodeTree<Type>(aTree) { }	// Copy constructor
 	virtual ~BinarySearchTree() { }	// Destructor
 	/////////////////////////////
 
@@ -44,7 +45,7 @@ template<class Type>
 bool BinarySearchTree<Type>::add(const Type &newData)
 {
 	BinaryNode<Type>* newNodePtr = new BinaryNode<Type>(newData);
-	BinaryNodeTree::rootPtr = weightedAdd(rootPtr, newNodePtr);
+	BinaryNodeTree<Type>::rootPtr = weightedAdd(BinaryNodeTree<Type>::rootPtr, newNodePtr);
 
 	return true;
 }	// End add
@@ -79,8 +80,8 @@ BinaryNode<Type>* BinarySearchTree<Type>::weightedAdd(BinaryNode<Type>* subTreeP
 template<class Type>
 BinarySearchTree<Type>& BinarySearchTree<Type>::operator=(const BinarySearchTree<Type>& right)
 {
-	clear();
-	rootPtr = BinaryNodeTree<Type>::copyTree(right.rootPtr);
+	BinaryNodeTree<Type>::clear();
+	BinaryNodeTree<Type>::rootPtr = BinaryNodeTree<Type>::copyTree(right.rootPtr);
 
 	return *this;
 }	// End overload operator=
@@ -109,7 +110,7 @@ template<class Type>
 bool BinarySearchTree<Type>::remove(const Type& entry)
 {
 	bool status = false;
-	rootPtr = removeValue(rootPtr, entry, status);
+	BinaryNodeTree<Type>::rootPtr = removeValue(BinaryNodeTree<Type>::rootPtr, entry, status);
 	return status;
 }	// End remove
 
@@ -150,9 +151,9 @@ BinaryNode<Type>* BinarySearchTree<Type>::removeValue(BinaryNode<Type>* subTreeP
 
 // Begin getEntry
 template<class Type>
-Type BinarySearchTree<Type>::getEntry(const Type& anEntry) const
+Type BinarySearchTree<Type>::getEntry(const Type& anEntry) const throw(NotFoundException)
 {
-	BinaryNode<Type>* nodeAt = findNode(rootPtr, anEntry);
+	BinaryNode<Type>* nodeAt = findNode(BinaryNodeTree<Type>::rootPtr, anEntry);
 	if (nodeAt == nullptr)
 		throw (NotFoundException("Value not found in tree."));
 	else
@@ -163,7 +164,7 @@ Type BinarySearchTree<Type>::getEntry(const Type& anEntry) const
 template<class Type>
 bool BinarySearchTree<Type>::contains(const Type& anEntry) const
 {
-	if (findNode(rootPtr, anEntry) == nullptr)
+	if (findNode(BinaryNodeTree<Type>::rootPtr, anEntry) == nullptr)
 		return false;
 	else
 		return true;

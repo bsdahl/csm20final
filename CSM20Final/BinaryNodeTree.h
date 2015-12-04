@@ -51,7 +51,7 @@ protected:
 	///////////////////////
 	// Exception Classes //
 	///////////////////////
-	class NotFoundException : public logic_error
+	class NotFoundException : public std::logic_error
 	{
 	public:
 		NotFoundException(const std::string& message = "") : logic_error("Not Found Exception: " + message) {}
@@ -134,7 +134,7 @@ void BinaryNodeTree<Type>::setRootData(const Type& newData)
 
 	// Begin getEntry
 template<class Type>
-Type BinaryNodeTree<Type>::getEntry(const Type& anEntry) const
+Type BinaryNodeTree<Type>::getEntry(const Type& anEntry) const throw(BinaryNodeTree::NotFoundException)
 {
 	BinaryNode<Type>* nodeAt = findNode(rootPtr, anEntry);
 	if (nodeAt == nullptr)
