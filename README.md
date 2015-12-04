@@ -13,7 +13,9 @@ We all worked together to create a design plan for the application. Strategies i
 AirlineInterface.h is the main interface class for the program. Its responsibilities are to hold the FlightManager data member, and provide input/output interface for the program. displayMenu() is designed to be used in main inside a while loop. It returns false when the user wishes to quit. 
 
 <table>
-	<tr>		<td>AirlineInterface.h</td>
+	<tr>		
+		<td>AirlineInterface.h</td>
+	</tr>
 	<tr>
 		<td>-data : FlightManager</td>
 	</tr>
