@@ -42,17 +42,17 @@ public:
 	///////////////////////////////////////////
 	// Overloaded operators
 	///////////////////////////////////////////
-	const bool operator == (const PassengerData & rhs);
-	const bool operator >  (const PassengerData & rhs);
-	const bool operator <  (const PassengerData & rhs);
+	const bool operator == (const PassengerData & rhs) const;
+	const bool operator >  (const PassengerData & rhs) const;
+	const bool operator <  (const PassengerData & rhs) const;
 
 private:
 	///////////////////////////////////////////
 	// Copy constructor and assignment operator
 	// Set to private to prevent copies
 	///////////////////////////////////////////
-	PassengerData ( const PassengerData & ) {}
-	PassengerData & operator = ( const PassengerData & rhs ) {}
+	//PassengerData ( const PassengerData & ) {}
+	//PassengerData & operator = ( const PassengerData & rhs ) {}
 
 	///////////////////////////////////////////
 	// Helper function and class data members

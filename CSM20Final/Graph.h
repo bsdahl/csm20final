@@ -62,7 +62,7 @@ public:
 	* @pre The edge exists in the graph.
 	* @post None.
 	* @return The weight of the edge parameter. */
-	int getWeight(ItemType start, ItemType end);
+	int getWeight(ItemType start, ItemType end) throw(NotFoundException);
 
 	/** Creates an edge in the graph.
 	* @pre The vertices exist in the graph.

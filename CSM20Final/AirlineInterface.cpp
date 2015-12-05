@@ -226,10 +226,15 @@ char AirlineInterface::getCityInput()
 	{
 		cin >> city;
 
-		if(city.length > 1)
+		if(city.length() > 1)
 			cout << "That is not a valid format for a city.\n"
+<<<<<<< HEAD
 				<< "Please enter a single character city name: ";
 	} while (city.length > 1);
+=======
+				<< "Please enter a single character city name.\n";
+	} while (city.length() > 1);
+>>>>>>> origin/master
 
 	cout << endl;
 

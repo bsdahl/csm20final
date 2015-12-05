@@ -13,7 +13,7 @@ class flightMap : public Graph<ItemType>
 {
 
 public:
-	flightMap() : Graph() {}  // Constructor -> inline function 
+	flightMap() : Graph<ItemType>() {}  // Constructor -> inline function
 
 	size_t shortestPath(const ItemType & start, const ItemType & end);
 };
@@ -35,8 +35,9 @@ size_t flightMap<ItemType>::shortestPath(const ItemType & start, const ItemType 
 	queue<pair<ItemType, int>> Q;
 	map<ItemType, int> distance;  // Will contain the distances from origin to all other vertices
 
-	for (iter2 = adjList.begin(); iter2 != adjList.end(); ++iter2)
-		distance[iter2->first] = std::numeric_limits<int>::max(); // first make all distances infinite
+    for (Graph<ItemType>::iter2 = Graph<ItemType>::adjList.begin();
+	Graph<ItemType>::iter2 != Graph<ItemType>::adjList.end(); ++Graph<ItemType>::iter2)
+		distance[Graph<ItemType>::iter2->first] = std::numeric_limits<int>::max(); // first make all distances infinite
 
 	distance[start] = 0;		// from-and-to starting vertex is distance zero
 	Q.push(make_pair(start, distance[start]));
@@ -51,10 +52,11 @@ size_t flightMap<ItemType>::shortestPath(const ItemType & start, const ItemType 
 
 		if (!found)
 		{
-			for (iter = adjList[u].begin(); iter != adjList[u].end(); ++iter)
+			for (Graph<ItemType>::iter = Graph<ItemType>::adjList[u].begin();
+			Graph<ItemType>::iter != Graph<ItemType>::adjList[u].end(); ++Graph<ItemType>::iter)
 			{
-				ItemType v = iter->first;	    // get adjecent vertex
-				int w = iter->second;           // get edge weight
+				ItemType v = Graph<ItemType>::iter->first;	    // get adjecent vertex
+				int w = Graph<ItemType>::iter->second;           // get edge weight
 
 				if (distance[v] > distance[u] + w)  // Looks for shortest path
 				{

@@ -1,4 +1,3 @@
-#pragma once
 #include "FlightData.h"
 
 bool FlightData::addPassenger(const PassengerData& pd) {
@@ -14,13 +13,17 @@ bool FlightData::findPassenger(const PassengerData& pd) {
 	return false;
 }
 
-PassengerData& FlightData::removePassenger(const PassengerData& pd) {
-	for (size_t i = 0; i < seatMap.size(); ++i) {
+PassengerData FlightData::removePassenger(const PassengerData& pd) {
+	size_t i;
+	PassengerData pdRemoved;
+	for (i = 0; i < seatMap.size(); ++i) {
 		if (seatMap[i] == pd) {
-			seatMap[i].erase(seatMap.begin() + i);
+			pdRemoved = seatMap[i];
+			seatMap.erase(seatMap.begin() + i);
 			break;
 		}
 	}
+	return pdRemoved;
 }
 
 std::ostream& operator<<(std::ostream & out, const FlightData& fd) {

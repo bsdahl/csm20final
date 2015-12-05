@@ -64,7 +64,7 @@ void PassengerData::setFlightNum(const size_t flight)
 	flightNum = flight;
 }
 
-const bool PassengerData::operator ==(const PassengerData& rhs)
+const bool PassengerData::operator ==(const PassengerData& rhs) const
 {
 	bool check = false;
 	if (reservationNum == 0 && rhs.reservationNum == 0)
@@ -86,7 +86,7 @@ const bool PassengerData::operator ==(const PassengerData& rhs)
 	return check;
 }
 
-const bool PassengerData::operator >(const PassengerData& rhs)
+const bool PassengerData::operator >(const PassengerData& rhs) const
 {
 	bool check = false;
 	if (reservationNum == 0 && rhs.reservationNum == 0)
@@ -108,7 +108,7 @@ const bool PassengerData::operator >(const PassengerData& rhs)
 	return check;
 }
 
-const bool PassengerData::operator <(const PassengerData& rhs)
+const bool PassengerData::operator <(const PassengerData& rhs) const
 {
 	bool check = false;
 	if (reservationNum == 0 && rhs.reservationNum == 0)
