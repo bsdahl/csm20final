@@ -126,7 +126,7 @@ bool AirlineInterface::displayAllPassengers()
 {
 	passengerSearch.clearKeys();
 
-	data.traversePassengers(passengerSearch);
+	data.traversePassenger(passengerSearch);
     return true;
 }
 
@@ -135,7 +135,7 @@ bool AirlineInterface::displayPassengersTo(char city)
 	flightSearch.clearKeys();
 	flightSearch.setToCity(city);
 
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 
@@ -144,7 +144,7 @@ bool AirlineInterface::displayPassengersFrom(char city)
 	flightSearch.clearKeys();
 	flightSearch.setFromCity(city);
 
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 
@@ -153,7 +153,7 @@ bool AirlineInterface::displayPassengersOnFlt(size_t flight)
 	flightSearch.clearKeys();
 	flightSearch.setFlightNum(flight);
 
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 
@@ -179,7 +179,7 @@ bool AirlineInterface::displayAllFlights()
 	flightSearch.clearKeys();
 	flightSearch.setDisplayPassengers(false);
 
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 
@@ -187,7 +187,7 @@ bool AirlineInterface::displayAllFlightsPassengers()
 {
 	flightSearch.clearKeys();
 	
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 
@@ -197,7 +197,7 @@ bool AirlineInterface::searchPassenger(string firstName, string lastName)
 	passengerSearch.setFirstNameKey(firstName);
 	passengerSearch.setLastNameKey(lastName);
 
-	data.traversePassengers(passengerSearch);
+	data.traversePassenger(passengerSearch);
     return true;
 }
 
@@ -206,7 +206,8 @@ bool AirlineInterface::searchPassenger(size_t reservationNum)
 	passengerSearch.clearKeys();
 	passengerSearch.setReservationNumKey(reservationNum);
 
-	data.traversePassengers(passengerSearch);
+	data.traversePassenger(passengerSearch);
+	return true;
 }
 
 bool AirlineInterface::searchFlight(size_t flight)
@@ -214,7 +215,7 @@ bool AirlineInterface::searchFlight(size_t flight)
 	flightSearch.clearKeys();
 	flightSearch.setFlightNum(flight);
 
-	data.traverseFlights(flightSearch);
+	data.traverseFlight(flightSearch);
     return true;
 }
 

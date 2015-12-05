@@ -134,7 +134,7 @@ void BinaryNodeTree<Type>::setRootData(const Type& newData)
 
 	// Begin getEntry
 template<class Type>
-Type BinaryNodeTree<Type>::getEntry(const Type& anEntry) const throw(BinaryNodeTree::NotFoundException)
+Type BinaryNodeTree<Type>::getEntry(const Type& anEntry) const throw(NotFoundException)
 {
 	BinaryNode<Type>* nodeAt = findNode(rootPtr, anEntry);
 	if (nodeAt == nullptr)
