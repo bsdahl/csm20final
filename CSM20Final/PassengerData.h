@@ -5,6 +5,7 @@
 //	Created by Jake Lyon on 11/27/2015
 //	Copyright © 2015 CSM20Final. All rights reserved.
 //
+#pragma warning(disable : 4290)
 
 #ifndef PASSENGER_DATA_H
 #define PASSENGER_DATA_H
@@ -29,9 +30,12 @@ public:
 								throw(PrecondViolatedExcep);
 	void setLastName	  ( const std::string last )
 								throw(PrecondViolatedExcep);
-	void setMembership	  ( const size_t seatClass );
-	void setReservationNum( const size_t reservation );
-	void setFlightNum	  ( const size_t flight );
+	void setMembership    (const size_t seatClass)
+								throw(PrecondViolatedExcep);
+	void setReservationNum( const size_t reservation )
+								throw(PrecondViolatedExcep);
+	void setFlightNum	  ( const size_t flight )
+								throw(PrecondViolatedExcep);
 
 	const std::string	getFirstName()		const { return firstName; }
 	const std::string	getLastName()		const { return lastName;  }

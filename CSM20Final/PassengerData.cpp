@@ -16,7 +16,7 @@ PassengerData::PassengerData( size_t reservation, string first, string last,
 							  size_t seatClass, size_t flight )
 {}
 
-void PassengerData::setFirstName(string first)
+void PassengerData::setFirstName(string first) throw(PrecondViolatedExcep)
 {
 	if (nameCheck(first))
 	{
@@ -28,7 +28,7 @@ void PassengerData::setFirstName(string first)
 	}
 }
 
-void PassengerData::setLastName(string last)
+void PassengerData::setLastName(string last) throw(PrecondViolatedExcep)
 {
 	if (nameCheck(last))
 	{
@@ -40,7 +40,7 @@ void PassengerData::setLastName(string last)
 	}
 }
 
-void PassengerData::setMembership(const size_t seatClass)
+void PassengerData::setMembership(const size_t seatClass) throw(PrecondViolatedExcep)
 {
 	if (seatClass > 4 || seatClass == 0)
 		throw PrecondViolatedExcep("Invalid seating: Seating class is represented by a value of 1-4");
@@ -48,7 +48,7 @@ void PassengerData::setMembership(const size_t seatClass)
 	this->seatClass = seatClass;
 }
 
-void PassengerData::setReservationNum(const size_t reservation)
+void PassengerData::setReservationNum(const size_t reservation) throw(PrecondViolatedExcep)
 {
 	if (reservation == 0)
 		throw PrecondViolatedExcep("Invalid reservation number: Reservation number must be greater than 0");
@@ -56,7 +56,7 @@ void PassengerData::setReservationNum(const size_t reservation)
 	reservationNum = reservation;
 }
 
-void PassengerData::setFlightNum(const size_t flight)
+void PassengerData::setFlightNum(const size_t flight) throw(PrecondViolatedExcep)
 {
 	if (flightNum == 0)
 		throw PrecondViolatedExcep("Invalid Flight Number: Flight number must be greater than 0");
@@ -132,20 +132,26 @@ const bool PassengerData::operator <(const PassengerData& rhs) const
 
 bool PassengerData::nameCheck(string name)
 {
-	bool nameOK = true;
-	while (nameOK)
+	bool success = false;  // Be pessimistic
+	int nameOK = 2; // a non-zero number
+	size_t i = 0;
+
+	while (i < name.size() && nameOK != 0)
 	{
-		for (char ch : name)
-			nameOK = isalpha(ch);
+		nameOK = isalpha(name[i]);
+		i++;
 	}
 
-	return nameOK;
+	if (nameOK)
+		success = true;
+
+	return success;
 }
 
 istream & operator >> (istream &in, PassengerData &val)
 {
 	string buf;
-	int iBuf;
+	//int iBuf;  --> not used?
 
 	getline(in, buf, ',');
 	val.setReservationNum(stol(buf));

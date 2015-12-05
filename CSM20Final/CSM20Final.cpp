@@ -5,6 +5,8 @@
 //  Copyright (c) 2015 CSM20Final. All rights reserved.
 //
 
+#pragma warning(disable : 4290)
+
 #include <iostream>
 #include "AirlineInterface.h"
 
