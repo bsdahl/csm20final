@@ -35,7 +35,8 @@ size_t flightMap<ItemType>::shortestPath(const ItemType & start, const ItemType 
 	queue<pair<ItemType, int>> Q;
 	map<ItemType, int> distance;  // Will contain the distances from origin to all other vertices
 
-    for (Graph<ItemType>::iter2 = Graph<ItemType>::adjList.begin(); Graph<ItemType>::iter2 != Graph<ItemType>::adjList.end(); ++Graph<ItemType>::iter2)
+    for (Graph<ItemType>::iter2 = Graph<ItemType>::adjList.begin();
+	Graph<ItemType>::iter2 != Graph<ItemType>::adjList.end(); ++Graph<ItemType>::iter2)
 		distance[Graph<ItemType>::iter2->first] = std::numeric_limits<int>::max(); // first make all distances infinite
 
 	distance[start] = 0;		// from-and-to starting vertex is distance zero
@@ -51,7 +52,8 @@ size_t flightMap<ItemType>::shortestPath(const ItemType & start, const ItemType 
 
 		if (!found)
 		{
-			for (Graph<ItemType>::iter = Graph<ItemType>::adjList[u].begin(); Graph<ItemType>::iter != Graph<ItemType>::adjList[u].end(); ++Graph<ItemType>::iter)
+			for (Graph<ItemType>::iter = Graph<ItemType>::adjList[u].begin();
+			Graph<ItemType>::iter != Graph<ItemType>::adjList[u].end(); ++Graph<ItemType>::iter)
 			{
 				ItemType v = Graph<ItemType>::iter->first;	    // get adjecent vertex
 				int w = Graph<ItemType>::iter->second;           // get edge weight
