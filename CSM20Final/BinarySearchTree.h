@@ -125,7 +125,7 @@ BinaryNode<Type>* BinarySearchTree<Type>::removeValue(BinaryNode<Type>* subTreeP
 	}
 	else if (subTreePtr->getItem() == target)	// If node contains the target: remove the node and return its successor.
 	{
-		subTreePtr = removeNode(subTreePtr);	// Remove node and re-link any children to main tree.
+		subTreePtr = this->removeNode(subTreePtr);	// Remove node and re-link any children to main tree.
 		success = true;
 		return subTreePtr;
 	}

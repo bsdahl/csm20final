@@ -131,6 +131,7 @@ bool FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)	// Will not al
 	{
 		std::cout << "\n\nError: Passenger's flight number does not match any existing flights. Passenger not added to list.\n\n";
 	}
+    return false;
 }	// End addPassenger
 
 /* populateMap()
