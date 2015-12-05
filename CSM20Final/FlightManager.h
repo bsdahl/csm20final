@@ -18,7 +18,6 @@
 #include <string>
 
 #include "AVLTree.h"
-// #include "ListSearch.h" no longer used in this class
 #include "flightMap.h"
 #include "PassengerData.h"
 #include "FlightData.h"
