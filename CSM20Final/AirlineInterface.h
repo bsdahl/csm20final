@@ -116,11 +116,10 @@ private:
 					vector<PassengerData> passengers = data.getSeatMap();
 					for (int i = 0; i < passengers.size(); i++)
 						cout << passengers[i];
+
+					displayCount++;
+					cout << endl;
 				}
-
-				cout << endl;
-
-				displayCount++;
 			}
 		}
 	private:
