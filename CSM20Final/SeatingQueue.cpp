@@ -78,6 +78,7 @@ void SeatingQueue::finalizeSeating()
 			}
 			busiC++;
 			seating.push_back(seatQueue.top());
+            seatQueue.pop();
 		}
 		else if (econC < MAX_ECON_CLASS && seating.size() < MAX_SEATS)	// If passenger is economy class, or is overflow, and flight is not full,
 		{																//  add passenger to flight.
