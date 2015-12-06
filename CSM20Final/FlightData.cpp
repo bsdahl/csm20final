@@ -36,7 +36,8 @@ std::ostream& operator<<(std::ostream & out, const FlightData& fd) {
 		<< std::setw(2) << std::setfill('0') << fd.departTime / 100
 		<< ':' << std::setw(2) << fd.departTime % 100 << "  "
 		<< std::setw(2) << fd.arriveTime/ 100
-		<< ':' << std::setw(2) << fd.arriveTime % 100 << '\n';
+		<< ':' << std::setw(2) << fd.arriveTime % 100
+		<< "  " << std::setw(4) << fd.mileage << '\n';
 	cout.fill(prev);  // to reset setfill()
 	return out;
 }
