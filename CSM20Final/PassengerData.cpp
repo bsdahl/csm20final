@@ -58,7 +58,7 @@ void PassengerData::setReservationNum(const size_t reservation) throw(PrecondVio
 
 void PassengerData::setFlightNum(const size_t flight) throw(PrecondViolatedExcep)
 {
-	if (flightNum == 0)
+	if (flight == 0)
 		throw PrecondViolatedExcep("Invalid Flight Number: Flight number must be greater than 0");
 
 	flightNum = flight;

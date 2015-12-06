@@ -9,12 +9,13 @@
 
 #include "FlightManager.h"
 
-FlightManager::FlightManager(const std::string& passengerFile, const std::string& flightFile)
+//FlightManager::FlightManager(const std::string& passengerFile, const std::string& flightFile)
+FlightManager::FlightManager()
 : seatQueue(waitList)
 {
 	populateMap();  // Gets the map up
 
-	std::string filename = flightFile;
+	std::string filename = "flightdata.txt";
 	std::ifstream input;
 	// TODO: have FlightManager read files and put data into trees.
 	// Read flight data file and add all flights to list.
@@ -23,24 +24,25 @@ FlightManager::FlightManager(const std::string& passengerFile, const std::string
 	{
 		input.close();
 		input.clear();
-		std::cout << "Flight data file \"" << flightFile << "\" is corrupted or invalid. Please enter a valid file name: ";
+		std::cout << "Flight data file \"" << filename << "\" is corrupted or invalid. Please enter a valid file name: ";
 		std::cin >> filename;
 		input.open(filename);
 	}
 	readFlightsFromFile(input);
 
 	// Read passenger data file and add all passengers to list/flights.
-	filename = passengerFile;
+	filename = "passengerdata.txt";
 	input.open(filename);
 	while (!input.good())	// input validation.
 	{
 		input.close();
 		input.clear();
-		std::cout << "Passenger data file \"" << passengerFile << "\" is corrupted or invalid. Please enter a valid file name: ";
+		std::cout << "Passenger data file \"" << filename << "\" is corrupted or invalid. Please enter a valid file name: ";
 		std::cin >> filename;
 		input.open(filename);
 	}
 	readPassengersFromFile(input);
+
 }	// End constructor
 
 void FlightManager::readFlightsFromFile(std::ifstream& inputStream)

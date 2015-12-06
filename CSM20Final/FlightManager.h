@@ -33,8 +33,9 @@ public:
 	/////////////////////////////
 	// Constructors/Destructor //
 	/////////////////////////////
-	FlightManager() : seatQueue(waitList) {}
-	FlightManager(const std::string& passengerFile, const std::string& flightFile);
+	//FlightManager() : seatQueue(waitList) {}
+	//FlightManager(const std::string& passengerFile, const std::string& flightFile);
+	FlightManager();  // Added default constructor
 	~FlightManager() {}
 
 	////////////////////////////////
