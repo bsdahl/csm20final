@@ -111,7 +111,7 @@ private:
 				match = match && (flightNum			== data.getFlightNumber());
 			if (firstPass)
 			{
-				cout << "Flight  Origin        Destination   Depart Arrive\n";
+				cout << "Flight  Origin        Destination   Depart Arrive Mileage\n";
 				firstPass = false;
 			}
 			if (match)
@@ -123,7 +123,7 @@ private:
 					cin.ignore();
 				}
 				if (displayCount != 0)            
-					cout << "Flight  Origin        Destination   Depart Arrive\n";
+					cout << "Flight  Origin        Destination   Depart Arrive Mileage\n";
 				cout << data;
 
 				if (displayPassengers)
