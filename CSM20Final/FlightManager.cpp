@@ -47,19 +47,22 @@ FlightManager::FlightManager()
 
 void FlightManager::readFlightsFromFile(std::ifstream& inputStream)
 {
-	std::string fieldBuffer;
+	std::string fieldBuffer, line;
 	FlightData newFlight;
 	while (!inputStream.eof())
 	{
-		std::getline(inputStream, fieldBuffer, ',');	// Flight number
+        std::getline(inputStream,line);
+        std::stringstream lineStream(line);
+        
+		std::getline(lineStream, fieldBuffer, ',');	// Flight number
 		newFlight.setFlightNumber(std::strtol(fieldBuffer.c_str(), nullptr, 10));
-		std::getline(inputStream, fieldBuffer, ',');	// To City
+		std::getline(lineStream, fieldBuffer, ',');	// To City
 		newFlight.setToCity(fieldBuffer.c_str()[0]);
-		std::getline(inputStream, fieldBuffer, ',');	// From City
+		std::getline(lineStream, fieldBuffer, ',');	// From City
 		newFlight.setFromCity(fieldBuffer.c_str()[0]);
-		std::getline(inputStream, fieldBuffer, ',');	// Departure Time
+		std::getline(lineStream, fieldBuffer, ',');	// Departure Time
 		newFlight.setDepartTime(std::strtol(fieldBuffer.c_str(), nullptr, 10));
-		std::getline(inputStream, fieldBuffer, ',');	// Arrival Time
+		std::getline(lineStream, fieldBuffer, ',');	// Arrival Time
 		newFlight.setArriveTime(std::strtol(fieldBuffer.c_str(), nullptr, 10));
 
 		addFlight(newFlight);		// Add new flight to list.
@@ -69,19 +72,22 @@ void FlightManager::readFlightsFromFile(std::ifstream& inputStream)
 
 void FlightManager::readPassengersFromFile(std::ifstream& inputStream)
 {
-	std::string fieldBuffer;
+	std::string fieldBuffer, line;
 	PassengerData newPassenger;
 	while (!inputStream.eof())
 	{
-		std::getline(inputStream, fieldBuffer, ',');	// Reservation number
+        std::getline(inputStream,line);
+        std::stringstream lineStream(line);
+        
+		std::getline(lineStream, fieldBuffer, ',');	// Reservation number
 		newPassenger.setReservationNum(std::strtol(fieldBuffer.c_str(), nullptr, 10));
-		std::getline(inputStream, fieldBuffer, ',');	// First name
+		std::getline(lineStream, fieldBuffer, ',');	// First name
 		newPassenger.setFirstName(fieldBuffer);
-		std::getline(inputStream, fieldBuffer, ',');	// Last name
+		std::getline(lineStream, fieldBuffer, ',');	// Last name
 		newPassenger.setLastName(fieldBuffer);
-		std::getline(inputStream, fieldBuffer, ',');	// Flight number
+		std::getline(lineStream, fieldBuffer, ',');	// Flight number
 		newPassenger.setFlightNum(std::strtol(fieldBuffer.c_str(), nullptr, 10));
-		std::getline(inputStream, fieldBuffer, ',');	// Membership value
+		std::getline(lineStream, fieldBuffer, ',');	// Membership value
 		newPassenger.setMembership(std::strtol(fieldBuffer.c_str(), nullptr, 10));
 
 		addPassenger(newPassenger);		// Add new passenger to list.
