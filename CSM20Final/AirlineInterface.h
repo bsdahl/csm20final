@@ -56,7 +56,7 @@ private:
 				match = match && (flightNumKey		== data.getFlightNum());
 			if (firstPass)
 			{
-				cout << "FirstName   LastName    Rsv   Class          Flight\n";
+				cout << "FirstName   LastName    Rsv  Class          Flight\n";
 				firstPass = false;
 			}
 			if (match)
