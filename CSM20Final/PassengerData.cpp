@@ -194,7 +194,7 @@ ostream &operator << (ostream & out, const PassengerData & val)
 		break;
 	}
 
-	out << ", " << val.getFlightNum(); 
+	out << ", " << val.getFlightNum() << '\n';
 
 	return out;
 }
