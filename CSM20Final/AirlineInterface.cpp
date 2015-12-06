@@ -27,7 +27,7 @@ bool AirlineInterface::displayMenu()
     cout << "Enter your selection: ";
     
 	cin.ignore(cin.rdbuf()->in_avail());
-    cin >> option;
+	option = getCharInput("menu item");
     cout << endl;
     
     switch (option)
@@ -38,25 +38,25 @@ bool AirlineInterface::displayMenu()
             
         {case '2':
 			cout << "Enter Destination City: ";
-			char city = getCityInput();
+			char city = getCharInput("menu item");
             displayPassengersTo(city);
             break;}
             
         {case '3':
 			cout << "Enter Origin City: ";
-			char city = getCityInput();
+			char city = getCharInput("menu item");
             displayPassengersFrom(city);
             break;}
             
         {case '4':
 			cout << "Enter a Flight Number: ";
-			size_t flight = getNumericInput();
+			size_t flight = getNumericInput("flight number");
             displayPassengersOnFlt(flight);
             break;}
             
         {case '5':
 			cout << "Enter a Flight Number: ";
-			size_t flight = getNumericInput();
+			size_t flight = getNumericInput("flight number");
             displayWaitFlight(flight);
             break;}
             
@@ -79,7 +79,7 @@ bool AirlineInterface::displayMenu()
 				<< "Enter your selection: ";
 
 			cin.ignore(cin.rdbuf()->in_avail());
-			cin >> option;
+			option = getCharInput("menu item");
 			cout << endl;
 
 			switch (option)
@@ -94,11 +94,11 @@ bool AirlineInterface::displayMenu()
 					break; }
 				{case '2':
 					cout << "Enter the Reservation Number: ";
-					size_t reservationNum = getNumericInput();
+					size_t reservationNum = getNumericInput("reservation number");
 					searchPassenger(reservationNum);
 					break; }
 				{default:
-					cout << option << " is not a valid menu item.\n";
+					cout << option << " is not a valid menu item.\n\n";
 					break; }
 			}
 
@@ -106,7 +106,7 @@ bool AirlineInterface::displayMenu()
             
         {case '0':
 			cout << "Enter a Flight Number: ";
-			size_t flight = getNumericInput();
+			size_t flight = getNumericInput("flight number");
             searchFlight(flight);
             break;}
             
@@ -115,7 +115,7 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {default:
-            cout << option << " is not a valid menu item.\n";
+            cout << option << " is not a valid menu item.\n\n";
             break;}
     }
     
@@ -241,25 +241,27 @@ bool AirlineInterface::searchFlight(size_t flight)
     return true;
 }
 
-char AirlineInterface::getCityInput()
+char AirlineInterface::getCharInput(string field)
 {
-	string city;
+	string selection;
 
 	do
 	{
-		cin >> city;
+		cin >> selection;
 
-		if(city.length() > 1)
-			cout << "That is not a valid format for a city.\n"
-				<< "Please enter a single character city name: ";
-	} while (city.length() > 1);
+		if (selection.length() > 1)
+			cout << "That is not a valid format for a " << field << ".\n"
+				<< "Please enter a single character: ";
+	} while (selection.length() > 1);
 
 	cout << endl;
 
-	return city[0];
+	selection[0] = toupper(selection[0]);
+
+	return selection[0];
 }
 
-size_t AirlineInterface::getNumericInput()
+size_t AirlineInterface::getNumericInput(string field)
 {
 	string line;
 	size_t num;
@@ -282,7 +284,7 @@ size_t AirlineInterface::getNumericInput()
 			successful = false; //then reject all input and ask user to reenter flight num
 
 		if (!successful)
-			cout << "That is not a valid format.\n"
+			cout << "That is not a valid format for a " << field << ".\n"
 			<< "Please enter only one non-zero, non-negative integer number: ";
 	} while (!successful);
 
@@ -293,7 +295,6 @@ void AirlineInterface::enterToContinue()
 {
     cin.ignore( cin.rdbuf()->in_avail() );
     cout << "\n\n********************* Press Enter to continue  -->  ";
-    cin.ignore();
     cin.ignore();
     cout << endl;
 }

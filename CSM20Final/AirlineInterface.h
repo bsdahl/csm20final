@@ -36,13 +36,20 @@ private:
 		void setReservationNumKey(size_t key)	{ reservationNumKey = key; }
 		void setFightNumKey		 (size_t key)	{ flightNumKey		= key; }
 
-		void clearKeys()						{ firstNameKey		= "";
+		void clearKeys()						{ displayCount		= 0;
+												  firstNameKey		= "";
 												  lastNameKey		= "";
 					   							  reservationNumKey = 0; 
 												  flightNumKey		= 0;   }
 
 		void operator()(PassengerData data)
 		{
+			if (displayCount != 0 && displayCount % 100 == 0)
+			{
+				cout << "Press Enter to Continue --> ";
+				cin.ignore(cin.rdbuf()->in_avail());
+				cin.ignore();
+			}
 			bool match = true;
 			if (firstNameKey != "")
 				match = match && (firstNameKey		== data.getFirstName());
@@ -53,10 +60,14 @@ private:
 			if (flightNumKey != 0)
 				match = match && (flightNumKey		== data.getFlightNum());
 			if (match)
+			{
 				cout << data;
+				displayCount++;
+			}
 		}
 
 	private:
+		int displayCount;
 		string firstNameKey;
 		string lastNameKey;
 		size_t reservationNumKey;
@@ -66,21 +77,29 @@ private:
 	class SearchForFlight
 	{
 	public:
-		SearchForFlight(AirlineInterface & parent) : parent(parent)  // Get a reference to parent class
-		{ clearKeys();			   }
+		SearchForFlight(AirlineInterface & parent) 
+			: parent(parent)  // Get a reference to parent class
+												{ clearKeys();			   }
 
 		void setToCity(char key)				{ toCity			= key; }
 		void setFromCity(char key)				{ fromCity			= key; }
 		void setFlightNum(size_t key)			{ flightNum			= key; }
 		void setDisplayPassengers(bool key)		{ displayPassengers = key; }
 
-		void clearKeys()						{ toCity			= 0;
+		void clearKeys()						{ displayCount		= 0;
+												  toCity			= 0;
 												  fromCity			= 0;
 												  flightNum			= 0;   
 												  displayPassengers = true;}
 
 		void operator()(FlightData data) 
 		{
+			if (displayCount != 0 && displayCount % 100 == 0)
+			{
+				cout << "Press Enter to Continue --> ";
+				cin.ignore(cin.rdbuf()->in_avail());
+				cin.ignore();
+			}
 			bool match = true;
 			if (toCity != 0)
 				match = match && (toCity			== data.getToCity());
@@ -99,9 +118,12 @@ private:
 					parent.data.traversePassenger(ps);
 					cout << "\n";
 				}
+
+				displayCount++;
 			}
 		}
 	private:
+		int displayCount;
 		char toCity;
 		char fromCity;
 		size_t flightNum;
@@ -130,8 +152,8 @@ private:
 	bool searchPassenger(size_t);
     bool searchFlight(size_t);
 
-	char getCityInput();
-	size_t getNumericInput();
+	char getCharInput(string field);
+	size_t getNumericInput(string field);
     
     void enterToContinue();
 };
