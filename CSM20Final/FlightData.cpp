@@ -29,7 +29,7 @@ PassengerData FlightData::removePassenger(const PassengerData& pd) {
 std::ostream& operator<<(std::ostream & out, const FlightData& fd) {
 	char prev(' ');
 
-	out << "  " << std::setw(4) << std::setfill('0')
+	out << "  " << std::right << std::setw(4) << std::setfill('0')
 		<< fd.flightNumber << "  " << std::setfill(' ')
 		<< std::setw(12) << std::left << fd.fromCity << "  "
 		<< std::setw(12) << fd.toCity << "  " << std::right
