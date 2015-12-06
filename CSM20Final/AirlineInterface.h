@@ -22,7 +22,7 @@ using namespace std;
 class AirlineInterface
 {
 public:
-	AirlineInterface() : flightSearch(*this) {}
+	AirlineInterface() {}
     bool displayMenu();
     
 private:
@@ -44,12 +44,6 @@ private:
 
 		void operator()(PassengerData data)
 		{
-			if (displayCount != 0 && displayCount % 100 == 0)
-			{
-				cout << "Press Enter to Continue --> ";
-				cin.ignore(cin.rdbuf()->in_avail());
-				cin.ignore();
-			}
 			bool match = true;
 			if (firstNameKey != "")
 				match = match && (firstNameKey		== data.getFirstName());
@@ -61,6 +55,13 @@ private:
 				match = match && (flightNumKey		== data.getFlightNum());
 			if (match)
 			{
+				if (displayCount != 0 && displayCount % 100 == 0)
+				{
+					cout << "Press Enter to Continue --> ";
+					cin.ignore(cin.rdbuf()->in_avail());
+					cin.ignore();
+				}
+
 				cout << data;
 				displayCount++;
 			}
@@ -77,9 +78,7 @@ private:
 	class SearchForFlight
 	{
 	public:
-		SearchForFlight(AirlineInterface & parent) 
-			: parent(parent)  // Get a reference to parent class
-												{ clearKeys();			   }
+		SearchForFlight()						{ clearKeys();			   }
 
 		void setToCity(char key)				{ toCity			= key; }
 		void setFromCity(char key)				{ fromCity			= key; }
@@ -94,12 +93,6 @@ private:
 
 		void operator()(FlightData data) 
 		{
-			if (displayCount != 0 && displayCount % 100 == 0)
-			{
-				cout << "Press Enter to Continue --> ";
-				cin.ignore(cin.rdbuf()->in_avail());
-				cin.ignore();
-			}
 			bool match = true;
 			if (toCity != 0)
 				match = match && (toCity			== data.getToCity());
@@ -109,15 +102,23 @@ private:
 				match = match && (flightNum			== data.getFlightNumber());
 			if (match)
 			{
+				if (displayCount != 0 && displayCount % 2 == 0)
+				{
+					cout << "Press Enter to Continue --> ";
+					cin.ignore(cin.rdbuf()->in_avail());
+					cin.ignore();
+				}
+
 				cout << data;
+
 				if (displayPassengers)
 				{
-					ps.clearKeys();
-					ps.setFightNumKey(data.getFlightNumber());
-					cout << "------------------------------------------------" << endl;
-					parent.data.traversePassenger(ps);
-					cout << "\n";
+					vector<PassengerData> passengers = data.getSeatMap();
+					for (int i = 0; i < passengers.size(); i++)
+						cout << passengers[i];
 				}
+
+				cout << endl;
 
 				displayCount++;
 			}
@@ -128,8 +129,6 @@ private:
 		char fromCity;
 		size_t flightNum;
 		bool displayPassengers;
-		SearchForPassenger ps;
-		AirlineInterface & parent;
 	};
 
     FlightManager data;
