@@ -40,7 +40,8 @@ private:
 												  firstNameKey		= "";
 												  lastNameKey		= "";
 					   							  reservationNumKey = 0; 
-												  flightNumKey		= 0;   }
+												  flightNumKey		= 0;   
+												  firstPass			= true;}
 
 		void operator()(PassengerData data)
 		{
@@ -53,6 +54,11 @@ private:
 				match = match && (reservationNumKey == data.getReservationNum());
 			if (flightNumKey != 0)
 				match = match && (flightNumKey		== data.getFlightNum());
+			if (firstPass)
+			{
+				cout << "FirstName | LastName | Reservation | Class | Flight\n";
+				firstPass = false;
+			}
 			if (match)
 			{
 				if (displayCount != 0 && displayCount % 100 == 0)
@@ -60,6 +66,7 @@ private:
 					cout << "Press Enter to Continue --> ";
 					cin.ignore(cin.rdbuf()->in_avail());
 					cin.ignore();
+					cout << "FirstName | LastName | Reservation | Class | Flight\n";
 				}
 
 				cout << data;
@@ -73,6 +80,7 @@ private:
 		string lastNameKey;
 		size_t reservationNumKey;
 		size_t flightNumKey;
+		bool firstPass;
 	};
 
 	class SearchForFlight
@@ -89,7 +97,8 @@ private:
 												  toCity			= 0;
 												  fromCity			= 0;
 												  flightNum			= 0;   
-												  displayPassengers = true;}
+												  displayPassengers = true;
+												  firstPass			= true;}
 
 		void operator()(FlightData data) 
 		{
@@ -100,6 +109,11 @@ private:
 				match = match && (fromCity			== data.getFromCity());
 			if (flightNum != 0)
 				match = match && (flightNum			== data.getFlightNumber());
+			if (firstPass)
+			{
+				cout << "Flight | Origin | Destination | Departure | Arrival | Mileage\n";
+				firstPass = false;
+			}
 			if (match)
 			{
 				if (displayCount != 0 && displayCount % 2 == 0)
@@ -108,11 +122,14 @@ private:
 					cin.ignore(cin.rdbuf()->in_avail());
 					cin.ignore();
 				}
-
+				if (displayCount != 0)
+					cout << "Flight | Origin | Destination | Departure | Arrival | Mileage\n";
 				cout << data;
 
 				if (displayPassengers)
 				{
+					cout << "FirstName | LastName | Reservation | Class | Flight\n";
+
 					vector<PassengerData> passengers = data.getSeatMap();
 					for (int i = 0; i < passengers.size(); i++)
 						cout << passengers[i];
@@ -127,7 +144,7 @@ private:
 		char toCity;
 		char fromCity;
 		size_t flightNum;
-		bool displayPassengers;
+		bool displayPassengers, firstPass;
 	};
 
     FlightManager data;

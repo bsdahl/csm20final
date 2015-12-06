@@ -11,7 +11,8 @@
 #include "AirlineInterface.h"
 
 int main() {
-    
+	cout << "Loading. Please wait.\n\n";
+
     AirlineInterface interface;
     bool OK = true;
     
