@@ -122,6 +122,8 @@ private:
 
 	char getCityInput();
 	size_t getNumericInput();
+    
+    void enterToContinue();
 };
 
 #endif

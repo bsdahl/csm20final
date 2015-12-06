@@ -127,6 +127,8 @@ bool AirlineInterface::displayAllPassengers()
 	passengerSearch.clearKeys();
 
 	data.traversePassenger(passengerSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -136,6 +138,8 @@ bool AirlineInterface::displayPassengersTo(char city)
 	flightSearch.setToCity(city);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -145,6 +149,8 @@ bool AirlineInterface::displayPassengersFrom(char city)
 	flightSearch.setFromCity(city);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -154,6 +160,8 @@ bool AirlineInterface::displayPassengersOnFlt(size_t flight)
 	flightSearch.setFlightNum(flight);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -163,6 +171,8 @@ bool AirlineInterface::displayWaitFlight(size_t flight)
 	passengerSearch.setFightNumKey(flight);
 
 	data.traverseWait(passengerSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -171,6 +181,8 @@ bool AirlineInterface::displayWaitAll()
 	passengerSearch.clearKeys();
 
 	data.traverseWait(passengerSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -180,6 +192,8 @@ bool AirlineInterface::displayAllFlights()
 	flightSearch.setDisplayPassengers(false);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -188,6 +202,8 @@ bool AirlineInterface::displayAllFlightsPassengers()
 	flightSearch.clearKeys();
 	
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -198,6 +214,8 @@ bool AirlineInterface::searchPassenger(string firstName, string lastName)
 	passengerSearch.setLastNameKey(lastName);
 
 	data.traversePassenger(passengerSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -207,7 +225,9 @@ bool AirlineInterface::searchPassenger(size_t reservationNum)
 	passengerSearch.setReservationNumKey(reservationNum);
 
 	data.traversePassenger(passengerSearch);
-	return true;
+    
+    enterToContinue();
+    return true;
 }
 
 bool AirlineInterface::searchFlight(size_t flight)
@@ -216,6 +236,8 @@ bool AirlineInterface::searchFlight(size_t flight)
 	flightSearch.setFlightNum(flight);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
     return true;
 }
 
@@ -265,4 +287,13 @@ size_t AirlineInterface::getNumericInput()
 	} while (!successful);
 
 	return num;
+}
+
+void AirlineInterface::enterToContinue()
+{
+    cin.ignore( cin.rdbuf()->in_avail() );
+    cout << "\n\n********************* Press Enter to continue  -->  ";
+    cin.ignore();
+    cin.ignore();
+    cout << endl;
 }
