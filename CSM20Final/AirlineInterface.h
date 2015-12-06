@@ -22,6 +22,7 @@ using namespace std;
 class AirlineInterface
 {
 public:
+	AirlineInterface() : flightSearch(*this) {}
     bool displayMenu();
     
 private:
@@ -65,7 +66,9 @@ private:
 	class SearchForFlight
 	{
 	public:
-		SearchForFlight()						{ clearKeys();			   }
+		SearchForFlight(AirlineInterface & parent) : parent(parent)  // Get a reference to parent class
+		{ clearKeys();			   }
+
 		void setToCity(char key)				{ toCity			= key; }
 		void setFromCity(char key)				{ fromCity			= key; }
 		void setFlightNum(size_t key)			{ flightNum			= key; }
@@ -90,7 +93,11 @@ private:
 				cout << data;
 				if (displayPassengers)
 				{
-					cout << "Placeholder";
+					ps.clearKeys();
+					ps.setFightNumKey(data.getFlightNumber());
+					cout << "------------------------------------------------" << endl;
+					parent.data.traversePassenger(ps);
+					cout << "\n";
 				}
 			}
 		}
@@ -99,11 +106,14 @@ private:
 		char fromCity;
 		size_t flightNum;
 		bool displayPassengers;
+		SearchForPassenger ps;
+		AirlineInterface & parent;
 	};
 
     FlightManager data;
 	SearchForPassenger passengerSearch;
 	SearchForFlight flightSearch;
+
     
     bool displayAllPassengers();
     bool displayPassengersTo(char);

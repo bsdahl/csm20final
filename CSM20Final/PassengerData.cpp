@@ -174,8 +174,9 @@ istream & operator >> (istream &in, PassengerData &val)
 ostream &operator << (ostream & out, const PassengerData & val)
 {
 	size_t membership = val.getMembership();
-
-	out << val.getFirstName() << " " << val.getLastName() << ", " << val.getReservationNum() << ", ";
+	
+	out << left << setw(12) << val.getFirstName() << left << setw(12) << val.getLastName()
+		<< left << setw(5) << val.getReservationNum() << left << setw(15);
 	switch (membership)
 	{
 	case 1:
@@ -194,7 +195,7 @@ ostream &operator << (ostream & out, const PassengerData & val)
 		break;
 	}
 
-	out << ", " << val.getFlightNum() << '\n';
+	out << val.getFlightNum() << '\n';
 
 	return out;
 }

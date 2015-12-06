@@ -11,6 +11,7 @@
 #define PASSENGER_DATA_H
 
 #include <iostream>
+#include <iomanip>
 
 #include "PrecondViolatedExcep.h"
 
