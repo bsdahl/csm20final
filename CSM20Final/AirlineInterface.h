@@ -56,7 +56,7 @@ private:
 				match = match && (flightNumKey		== data.getFlightNum());
 			if (firstPass)
 			{
-				cout << "FirstName | LastName | Reservation | Class | Flight\n";
+				cout << "FirstName   LastName    Rsv   Class          Flight\n";
 				firstPass = false;
 			}
 			if (match)
@@ -66,7 +66,7 @@ private:
 					cout << "Press Enter to Continue --> ";
 					cin.ignore(cin.rdbuf()->in_avail());
 					cin.ignore();
-					cout << "FirstName | LastName | Reservation | Class | Flight\n";
+					cout << "FirstName   LastName    Rsv  Class          Flight\n";
 				}
 
 				cout << data;
@@ -111,7 +111,7 @@ private:
 				match = match && (flightNum			== data.getFlightNumber());
 			if (firstPass)
 			{
-				cout << "Flight | Origin | Destination | Departure | Arrival | Mileage\n";
+				cout << "Flight  Origin        Destination   Depart Arrive\n";
 				firstPass = false;
 			}
 			if (match)
@@ -122,16 +122,16 @@ private:
 					cin.ignore(cin.rdbuf()->in_avail());
 					cin.ignore();
 				}
-				if (displayCount != 0)
-					cout << "Flight | Origin | Destination | Departure | Arrival | Mileage\n";
+				if (displayCount != 0)            
+					cout << "Flight  Origin        Destination   Depart Arrive\n";
 				cout << data;
 
 				if (displayPassengers)
 				{
-					cout << "FirstName | LastName | Reservation | Class | Flight\n";
+					cout << "FirstName   LastName    Rsv  Class          Flight\n";
 
 					vector<PassengerData> passengers = data.getSeatMap();
-					for (int i = 0; i < passengers.size(); i++)
+					for (size_t i = 0; i < passengers.size(); i++)
 						cout << passengers[i];
 
 					displayCount++;
