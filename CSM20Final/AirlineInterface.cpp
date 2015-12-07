@@ -74,7 +74,6 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {case '9':
-            cout << "WARNING: This will permenently delete the passenger from the Reservation System. This action cannot be undone.\n";
 			cout << "Choose an option.\n"
 				<< "1. Search by Name\n"
 				<< "2. Search by Reservation Number\n"
@@ -113,6 +112,7 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {case 'D':
+            cout << "WARNING: This will permenently delete the passenger from the Reservation System. This action cannot be undone.\n";
             cout << "Choose an option.\n"
             << "1. Search by Name\n"
             << "2. Search by Reservation Number\n"
