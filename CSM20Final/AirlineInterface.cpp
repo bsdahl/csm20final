@@ -23,6 +23,7 @@ bool AirlineInterface::displayMenu()
     cout << "8. Display all flights including passengers.\n";
     cout << "9. Search for a passenger.\n";
     cout << "0. Search for a flight.\n";
+    cout << "D. Delete a Passenger.\n";
     cout << "Q. Quit.\n";
     cout << "Enter your selection: ";
     
@@ -73,6 +74,7 @@ bool AirlineInterface::displayMenu()
             break;}
             
         {case '9':
+            cout << "WARNING: This will permenently delete the passenger from the Reservation System. This action cannot be undone.\n";
 			cout << "Choose an option.\n"
 				<< "1. Search by Name\n"
 				<< "2. Search by Reservation Number\n"
@@ -108,6 +110,38 @@ bool AirlineInterface::displayMenu()
 			cout << "Enter a Flight Number: ";
 			size_t flight = getNumericInput("flight number");
             searchFlight(flight);
+            break;}
+            
+        {case 'D':
+            cout << "Choose an option.\n"
+            << "1. Search by Name\n"
+            << "2. Search by Reservation Number\n"
+            << "Enter your selection: ";
+            
+            cin.ignore(cin.rdbuf()->in_avail());
+            option = getCharInput("menu item");
+            cout << endl;
+            
+            switch (option)
+            {
+                {case '1':
+                    string firstName ,lastName;
+                    cout << "Enter the First Name: ";
+                    cin >> firstName;
+                    cout << "Enter the Last Name: ";
+                    cin >> lastName;
+                    removePassenger(firstName, lastName);
+                    break; }
+                {case '2':
+                    cout << "Enter the Reservation Number: ";
+                    size_t reservationNum = getNumericInput("reservation number");
+                    removePassenger(reservationNum);
+                    break; }
+                {default:
+                    cout << option << " is not a valid menu item.\n\n";
+                    break; }
+            }
+            
             break;}
             
         {case 'Q':
@@ -236,6 +270,33 @@ bool AirlineInterface::searchFlight(size_t flight)
 	flightSearch.setFlightNum(flight);
 
 	data.traverseFlight(flightSearch);
+    
+    enterToContinue();
+    return true;
+}
+
+bool AirlineInterface::removePassenger(string firstName, string lastName)
+{
+    passengerSearch.clearKeys();
+    passengerSearch.setFirstNameKey(firstName);
+    passengerSearch.setLastNameKey(lastName);
+    passengerSearch.setRemovePassengerKey(true);
+    passengerSearch.setfmPtr(&data);
+    
+    data.traversePassenger(passengerSearch);
+    
+    enterToContinue();
+    return true;
+}
+
+bool AirlineInterface::removePassenger(size_t reservationNum)
+{
+    passengerSearch.clearKeys();
+    passengerSearch.setReservationNumKey(reservationNum);
+    passengerSearch.setRemovePassengerKey(true);
+    passengerSearch.setfmPtr(&data);
+    
+    data.traversePassenger(passengerSearch);
     
     enterToContinue();
     return true;

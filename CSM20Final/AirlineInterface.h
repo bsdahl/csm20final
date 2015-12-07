@@ -35,25 +35,28 @@ private:
 		void setLastNameKey		 (string key)	{ lastNameKey		= key; }
 		void setReservationNumKey(size_t key)	{ reservationNumKey = key; }
 		void setFightNumKey		 (size_t key)	{ flightNumKey		= key; }
-
+        void setRemovePassengerKey(bool  key)   { removePassenger   = key; }
+        void setfmPtr       (FlightManager* key){ fmPtr             = key; }
 		void clearKeys()						{ displayCount		= 0;
 												  firstNameKey		= "";
 												  lastNameKey		= "";
 					   							  reservationNumKey = 0; 
 												  flightNumKey		= 0;   
-												  firstPass			= true;}
+												  firstPass			= true;
+                                                  removePassenger   = false;
+                                                  fmPtr                = nullptr;}
 
-		void operator()(PassengerData data)
+		void operator()(PassengerData passenger)
 		{
 			bool match = true;
 			if (firstNameKey != "")
-				match = match && (firstNameKey		== data.getFirstName());
+				match = match && (firstNameKey		== passenger.getFirstName());
 			if (lastNameKey != "")
-				match = match && (lastNameKey		== data.getLastName());
+				match = match && (lastNameKey		== passenger.getLastName());
 			if (reservationNumKey != 0)
-				match = match && (reservationNumKey == data.getReservationNum());
+				match = match && (reservationNumKey == passenger.getReservationNum());
 			if (flightNumKey != 0)
-				match = match && (flightNumKey		== data.getFlightNum());
+				match = match && (flightNumKey		== passenger.getFlightNum());
 			if (firstPass)
 			{
 				cout << "FirstName   LastName    Rsv  Class          Flight\n";
@@ -68,9 +71,17 @@ private:
 					cin.ignore();
 					cout << "FirstName   LastName    Rsv  Class          Flight\n";
 				}
-
-				cout << data;
-				displayCount++;
+                if (!removePassenger)
+                {
+                    cout << passenger;
+                    displayCount++;
+                }
+                else if (removePassenger)
+                {
+                    cout << passenger;
+                    fmPtr->removePassenger(passenger);
+                    cout << "\n Successfully Removed.";
+                }
 			}
 		}
 
@@ -80,7 +91,9 @@ private:
 		string lastNameKey;
 		size_t reservationNumKey;
 		size_t flightNumKey;
+        bool removePassenger;
 		bool firstPass;
+        FlightManager* fmPtr;
 	};
 
 	class SearchForFlight
@@ -166,6 +179,9 @@ private:
     bool searchPassenger(string, string);
 	bool searchPassenger(size_t);
     bool searchFlight(size_t);
+    
+    bool removePassenger(string, string);
+    bool removePassenger(size_t);
 
 	char getCharInput(string field);
 	size_t getNumericInput(string field);
