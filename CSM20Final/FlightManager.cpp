@@ -138,9 +138,43 @@ bool FlightManager::addPassenger(const PASS_DATA_TYPE& passenger)	// Will not al
 	else
 	{
 		std::cout << "\n\nError: Passenger's flight number does not match any existing flights. Passenger not added to list.\n\n";
+		return false;
 	}
-    return false;
 }	// End addPassenger
+
+PASS_DATA_TYPE FlightManager::removePassenger(const PASS_DATA_TYPE& aPassenger)	throw (NotFoundException)
+{
+	if (passengerList.contains(aPassenger))
+	{
+		PassengerData removedPassenger = passengerList.getEntry(aPassenger);
+		size_t flightNumber = removedPassenger.getFlightNum();
+		FlightData flightBuffer;
+		flightBuffer.setFlightNumber(flightNumber);
+
+		// Temporarily remove flight containing the passenger from list.
+		if (flightList.contains(flightBuffer))
+			 flightBuffer = flightList.getEntry(flightBuffer);
+		else
+			throw NotFoundException("\n\nPassenger's flight does not exist. Cannot remove passenger.\n\n");
+
+		flightBuffer.removePassenger(aPassenger);		// remove passenger from flight.
+		flightList.add(flightBuffer);					// re-add flight to list.
+
+		// add next passenger on waitlist back to passengerList and corresponding flight.
+		nextFromWaitlist next(flightNumber);
+		waitList.inorderTraverse(next);
+		waitList.remove(next.get());
+		addPassenger(next.get());
+
+		// Remove specified passenger from list of passengers.
+		passengerList.remove(removedPassenger);
+		return removedPassenger;
+	}
+	else
+	{
+		throw NotFoundException("\n\nPassenger does not exist. Cannot remove passenger.\n\n");
+	}
+}	// End removePassenger
 
 /* populateMap()
 Will create the map by adding the vertices (cities) with

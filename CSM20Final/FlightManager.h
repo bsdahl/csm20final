@@ -22,6 +22,7 @@
 #include "PassengerData.h"
 #include "FlightData.h"
 #include "SeatingQueue.h"
+#include "NotFoundException.h"
 
 #define PASS_DATA_TYPE PassengerData		// TODO: change placeholder type to passenger data type when available
 #define FLIGHT_DATA_TYPE FlightData		// TODO: change placeholder type to flight data type when available
@@ -50,8 +51,31 @@ public:
 
 	bool addPassenger(const PASS_DATA_TYPE&);
 	void addFlight(FLIGHT_DATA_TYPE& flight);
+	PASS_DATA_TYPE removePassenger(const PASS_DATA_TYPE&) throw (NotFoundException);
+
 
 private:
+	/////////////////////////////
+	// Private Utility Classes //
+	/////////////////////////////
+	class nextFromWaitlist		// used for finding the next, highest membership, waitlisted passenger for a specified flight.
+	{
+	private:
+		size_t flightNum;
+		PASS_DATA_TYPE nextPassenger;
+	public:
+		nextFromWaitlist(const size_t& flightNumber) : flightNum(flightNumber) {}
+		void operator()(const PASS_DATA_TYPE& aPassenger)
+		{
+			if (aPassenger.getFlightNum() == flightNum)
+			{
+				if ((nextPassenger.getMembership() == 0) || (aPassenger.getMembership() < nextPassenger.getMembership()))
+					nextPassenger = aPassenger;
+			}
+		}
+		PASS_DATA_TYPE get() { return nextPassenger; }
+	};
+
 	//////////////////////////
 	// Private Data Members //
 	//////////////////////////
