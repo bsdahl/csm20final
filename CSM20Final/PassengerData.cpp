@@ -14,7 +14,18 @@ using namespace std;
 
 PassengerData::PassengerData( size_t reservation, string first, string last,
 							  size_t seatClass, size_t flight )
-{}
+{
+	if (reservation > 0)
+		setReservationNum(reservation);
+	if (first != "")
+		setFirstName(first);
+	if (last != "")
+		setLastName(last);
+	if (seatClass > 0)
+		setMembership(seatClass);
+	if (flight > 0)
+		setFlightNum(flight);
+}
 
 void PassengerData::setFirstName(string first) throw(PrecondViolatedExcep)
 {
@@ -151,7 +162,7 @@ bool PassengerData::nameCheck(string name)
 istream & operator >> (istream &in, PassengerData &val)
 {
 	string buf;
-	//int iBuf;  --> not used?
+	//int iBuf;  --> not used?		// getline() doesn't seem to like it
 
 	getline(in, buf, ',');
 	val.setReservationNum(stol(buf));
