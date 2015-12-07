@@ -44,7 +44,7 @@ private:
 												  flightNumKey		= 0;   
 												  firstPass			= true;
                                                   removePassenger   = false;
-                                                  fmPtr                = nullptr;}
+                                                  fmPtr             = nullptr;}
 
 		void operator()(PassengerData passenger)
 		{
@@ -80,7 +80,6 @@ private:
                 {
                     cout << passenger;
                     fmPtr->removePassenger(passenger);
-                    cout << "\n Successfully Removed.";
                 }
 			}
 		}
