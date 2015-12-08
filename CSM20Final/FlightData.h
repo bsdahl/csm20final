@@ -23,6 +23,7 @@ public:
 	void setToCity(char city) { toCity = city; }
 	void setFromCity(char city) { fromCity = city; }
 	void incBounceCount() { bounced++; }
+	void decBounceCount() { bounced--; }
 	size_t getMaxPassengers() { return MAX_PASSENGERS; }
 	size_t getFlightNumber() { return flightNumber; }
 	size_t getMileage() { return mileage; }

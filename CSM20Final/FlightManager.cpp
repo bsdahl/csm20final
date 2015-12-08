@@ -153,21 +153,37 @@ PASS_DATA_TYPE FlightManager::removePassenger(const PASS_DATA_TYPE& aPassenger)	
 
 		// Temporarily remove flight containing the passenger from list.
 		if (flightList.contains(flightBuffer))
-			 flightBuffer = flightList.getEntry(flightBuffer);
+		{
+			flightBuffer = flightList.getEntry(flightBuffer);
+			flightList.remove(flightBuffer);
+		}
 		else
 			throw NotFoundException("\n\nPassenger's flight does not exist. Cannot remove passenger.\n\n");
 
 		flightBuffer.removePassenger(aPassenger);		// remove passenger from flight.
-		flightList.add(flightBuffer);					// re-add flight to list.
 
-		// add next passenger on waitlist back to passengerList and corresponding flight.
-		nextFromWaitlist next(flightNumber);
-		waitList.inorderTraverse(next);
-		waitList.remove(next.get());
-		addPassenger(next.get());
+		// If there is a passenger waitlisted for the flight, add them to the flight.
+		if (!waitList.isEmpty())
+		{
+			nextFromWaitlist next(flightNumber);
+			waitList.inorderTraverse(next);		// Find next passenger.
+			if (waitList.contains(next.get()))	// Check if a passenger was found.
+			{
+				// Add waitlisted passenger to flight and requeue passengers.
+				if (flightBuffer.getBounceCount() > 0)
+					flightBuffer.decBounceCount();	// If there have been any bounced passengers, decrement the bounced count for the flight.
+				seatQueue.setFlight(flightBuffer);
+				seatQueue.add(next.get());
+				seatQueue.finalizeSeating();
+				waitList.remove(next.get());
+			}
+		}
+		// re-add flight to list.
+		flightList.add(flightBuffer);					
 
 		// Remove specified passenger from list of passengers.
 		passengerList.remove(removedPassenger);
+
 		return removedPassenger;
 	}
 	else
