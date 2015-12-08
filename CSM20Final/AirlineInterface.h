@@ -44,7 +44,8 @@ private:
 												  flightNumKey		= 0;   
 												  firstPass			= true;
                                                   removePassenger   = false;
-                                                  fmPtr             = nullptr;}
+                                                  fmPtr             = nullptr;
+                                                  markedForRemoval  = nullptr;}
 
 		void operator()(PassengerData passenger)
 		{
@@ -71,27 +72,34 @@ private:
 					cin.ignore();
 					cout << "FirstName   LastName    Rsv  Class          Flight\n";
 				}
-                if (!removePassenger)
+
+                cout << passenger;
+                displayCount++;
+                
+                if (removePassenger)
                 {
-                    cout << passenger;
-                    displayCount++;
-                }
-                else if (removePassenger)
-                {
-                    cout << passenger;
-                    try {
-                        fmPtr->removePassenger(passenger);
-                        cout << "\nSuccesfully removed.";
-                    }
-                    catch (NotFoundException&  error)
-                    {
-                        cout << error.what() << endl;
-                        cout << "\n Removal failed.";
-                    }
-                    
+                    markedForRemoval = &passenger;
                 }
 			}
 		}
+        
+        bool removeMarkedPassenger()
+        {
+            if (!(markedForRemoval == nullptr))
+            {
+                try {
+                    fmPtr->removePassenger(*markedForRemoval);
+                    cout << "\nSuccesfully removed.";
+                    return true;
+                }
+                catch (NotFoundException&  error)
+                {
+                    cout << error.what() << endl;
+                    cout << "\n Removal failed.";
+                }
+            }
+            return false;
+        }
 
 	private:
 		int displayCount;
@@ -102,6 +110,7 @@ private:
         bool removePassenger;
 		bool firstPass;
         FlightManager* fmPtr;
+        PassengerData* markedForRemoval;
 	};
 
 	class SearchForFlight

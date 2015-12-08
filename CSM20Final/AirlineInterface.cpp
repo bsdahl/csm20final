@@ -298,6 +298,8 @@ bool AirlineInterface::removePassenger(size_t reservationNum)
     
     data.traversePassenger(passengerSearch);
     
+    passengerSearch.removeMarkedPassenger();
+    
     enterToContinue();
     return true;
 }
