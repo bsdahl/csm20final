@@ -79,7 +79,16 @@ private:
                 else if (removePassenger)
                 {
                     cout << passenger;
-                    fmPtr->removePassenger(passenger);
+                    try {
+                        fmPtr->removePassenger(passenger);
+                        cout << "\nSuccesfully removed.";
+                    }
+                    catch (NotFoundException&  error)
+                    {
+                        cout << error.what() << endl;
+                        cout << "\n Removal failed.";
+                    }
+                    
                 }
 			}
 		}
