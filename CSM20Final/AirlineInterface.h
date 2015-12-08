@@ -26,6 +26,14 @@ public:
     bool displayMenu();
     
 private:
+    
+//
+// Begin SearchForPassenger nested class.
+// CSM20Final
+//
+// This is a utility class meant to be passed into a traversal function.
+//
+//
 	class SearchForPassenger
 	{
 	public:
@@ -45,9 +53,13 @@ private:
 												  firstPass			= true;
                                                   removePassenger   = false;
                                                   fmPtr             = nullptr;
-                                                  markedForRemoval  = nullptr;}
+                                                  if (markedForRemoval != nullptr)
+                                                  {
+                                                      delete markedForRemoval;
+                                                      markedForRemoval = nullptr;
+                                                  }}
 
-		void operator()(PassengerData passenger)
+		void operator()(PassengerData& passenger)
 		{
 			bool match = true;
 			if (firstNameKey != "")
@@ -78,7 +90,7 @@ private:
                 
                 if (removePassenger)
                 {
-                    markedForRemoval = &passenger;
+                    markedForRemoval = new PassengerData(passenger);
                 }
 			}
 		}
@@ -95,7 +107,7 @@ private:
                 catch (NotFoundException&  error)
                 {
                     cout << error.what() << endl;
-                    cout << "\n Removal failed.";
+                    cout << "\nRemoval failed.";
                 }
             }
             return false;
@@ -113,6 +125,13 @@ private:
         PassengerData* markedForRemoval;
 	};
 
+//
+// Begin SearchForFlight nested class.
+// CSM20Final
+//
+// This is a utility class meant to be passed into a traversal function.
+//
+//
 	class SearchForFlight
 	{
 	public:
