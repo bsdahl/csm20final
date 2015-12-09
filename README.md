@@ -23,7 +23,7 @@ We all worked together to create a design plan for the application. Strategies i
 - Alex Latouf
   - Airline Interface Class
 - Beto Lopez
-  - Graph Class and FLightmap Clas
+  - Graph Class and Flightmap Clas
 - Jake Lyon
   - Passenger Data Class
 
@@ -52,6 +52,8 @@ Enter your selection:
 ```
 
 AirlineInterface.h also contains a couple nested classes including SearchForPassenger class, and SearchForFlight class. These classes are utility classes that have the operator() overloaded. They are used as a function object for the AVL Tree traversal functions. 
+
+*Notes:* It is important to recognize that the output of displaying passengers on a flight shows the original seatclass of the passenger's reservation rather than the seat class they are currently in. The list of passengers on a flight is in order of the seatmap. The first 3 seats are for Pilot Club, the next 5 seats are First Class, the next 5 seats are Business Class, and the remaining 27 seats are economy. If there was not room for a passenger in their seating class they were bounced into a lower seat rather than putting them on a waitlist. The bounce was in order of reservation number. Consideration was made to be sure that no more than 10 bounced seats occur on a given flight.
 
 <table>
 	<tr>		
