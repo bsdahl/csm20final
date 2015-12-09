@@ -82,7 +82,7 @@ AirlineInterface.h also contains a couple nested classes including SearchForPass
 
 <table>
 	<tr>		
-		<td>SearchForPassenger.h</td>
+		<td>SearchForPassenger</td>
 	</tr>
 	<tr>
 		<td>-displayCount : int<br>
@@ -112,7 +112,7 @@ AirlineInterface.h also contains a couple nested classes including SearchForPass
 
 <table>
 	<tr>		
-		<td>SearchForFlight.h</td>
+		<td>SearchForFlight</td>
 	</tr>
 	<tr>
 		<td>-displayCount : int<br>
@@ -180,6 +180,7 @@ nextFromWaitList is a private utility class within FlightManager. It is called a
 		+get() : PassengerData<br>
 		+found() : bool</td>
 	</tr>
+</table>
 
 ###FlightData.h
 
