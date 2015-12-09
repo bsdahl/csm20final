@@ -140,21 +140,46 @@ FlightManager.h is the main data class. It is responsible for holding AVL trees 
 <table>
 	<tr>
 		<td>FlightManager.h</td>
+	</tr>
 	<tr>
 		<td>-passengerList : AVLTree&lt;PassengerData&gt;<br>
 		-flightList : AVLTree&lt;FlightData&gt;<br>
 		-waitList : AVLTree&lt;PassengerData&gt;<br>
-		-flightMap : FlightMap</td>
+		-flightMap : FlightMap<br>
+		-seatQueue : SeatingQueue</td>
 	</tr>
 	<tr>
 		<td>+FlightManager()<br>
 		+traversePassenger() : void<br>
 		+traverseFlight() : void<br>
 		+traverseWait() : void<br>
-		-readInput() : void<br>
-		</td>
+		+addPassenger( passenger : const PassengerData&amp; ) : bool<br>
+		+addFlight( flight : FlightData&amp; ) : void<br>
+		+removePassenger( aPassenger : const PassengerData&amp; ) : PassengerData<br>
+		-calculateMileage( flight : FlightData&amp; ) : void<br>
+		-readFlightsFromFile( inputStream : ifstream&amp; ) : void<br>
+		-readPassengersFromFile( inputStream : ifstream&amp; ) : void<br>
+		-populateMap() : void</td>
 	</tr>
 </table>
+
+###nextFromWaitList
+
+nextFromWaitList is a private utility class within FlightManager. It is called as a function object parameter for an AVL tree traversal. It will determine the next highest membership passenger waitlisted for a given flight. This passenger is stored in dynamic memory pointed to by nextPassenger, and is returned by get(). The found() function returns a bool indicating whether a passenger for the specified flight was found in the AVL tree.
+<table>
+	<tr>
+		<td>nextFromWaitlist</td>
+	</tr>
+	<tr>
+		<td>-flightNum : size_t<br>
+		-nextPassenger : PassengerData*</td>
+	</tr>
+	<tr>
+		<td>+nextFromWaitlist( flightNumber : const size_t&amp; )<br>
+		+operator()( aPassenger : const PassengerData&amp; ) : void<br>
+		+get() : PassengerData<br>
+		+found() : bool</td>
+	</tr>
 
 ###FlightData.h
 
