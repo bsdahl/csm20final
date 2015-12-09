@@ -72,7 +72,7 @@ private:
 			{
 				if (nextPassenger == nullptr)
 					nextPassenger = new PassengerData(aPassenger);
-				if ((nextPassenger == nullptr) || (aPassenger.getMembership() < nextPassenger->getMembership()))
+				if (aPassenger.getMembership() < nextPassenger->getMembership())
 				{
 					*nextPassenger = aPassenger;
 				}
