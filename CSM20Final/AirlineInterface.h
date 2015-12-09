@@ -122,7 +122,7 @@ private:
         bool removePassenger;
 		bool firstPass;
         FlightManager* fmPtr;
-        PassengerData* markedForRemoval;
+        PassengerData* markedForRemoval = nullptr;
 	};
 
 //
