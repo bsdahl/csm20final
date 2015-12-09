@@ -9,6 +9,8 @@ Github repository:
 
 We all worked together to create a design plan for the application. Strategies included simplifying tasks to specific classes, optimizing code size by relying on containers, and focusing on the requirements of the assignment. We started by outlining what classes we would need, including PassengerData.h, and FlightData.h classes. We then discussed separating the data from the interface by creating two classes: AirlineInterface.h would handle the program output and interface, and FlightManager.h would handle the creation, storage, and calculation of the data. We tried to focus on how an actual Airline Reservations System might work. 
 
+*Notes on Compiler*: When we initially compiled the application on Visual Studio we noticed a significant delay to display the main menu. This delay was not present when compiling with Xcode's LLVM compiler or GCC's g++ compiler. We quickly ruled out this being a machine specific issue and managed to track it down and found it was related to Visual Studio defaulting the solution configuration to debug mode causing extra debugging information to be generated and the optimizations to be turned off. Switching this option to release fixed this speed issue since the extra debug information was not included and the optimizations were turned on.
+
 ###Credit
 
 - Nicholas Clayton
@@ -333,3 +335,100 @@ shortest path between two vertices(cities) whilst maintaining data independence 
 	
 	</tr>
 </table>
+
+### FlightData.h
+`FlightData.h` handles the all the data that is associated with a flight.
+
+<table>
+  <tr>
+    <td>**FlightData.h**</td>
+  </tr>
+  <tr>
+    <td>
+      -MAX_PASSENGERS : static const size_t = 40 <br>
+      -flightNumber : size_t <br>
+      -departTime : size_t <br>
+      -arriveTime : size_t <br>
+      -bounced : size_t = 0 <br>
+      -mileage : size_t <br>
+      -toCity : char <br>
+      -fromCity : char <br>
+      -seatMap : vector<PassengerData>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      +FlightData(fn : size_t = 0, miles : size_t = 0, departTime : size_t = 0, arriveTime : size_t = 0, toc : char = '0', frc : char = '0') <br>
+      +operator==(right : const FlightData&) : bool <br>
+      +operator>(right : const FlightData&) : bool const <br>
+      +operator<(right : const FlightData&) : bool const <br>
+      +operator<<(out : ostream&, fd : const FlightData&) : friend ostream& <br>
+      +setFlightNumber(fn : size_t) : void <br>
+      +setMileage(miles : size_t) : void <br>
+      +setDepartTime(time : size_t) : void <br>
+      +setArriveTime(time : size_t) : void <br>
+      +setToCity(city : char) : void <br>
+      +setFromCity(city : char) : void <br>
+      +setSeatMap(sm : const vector<PassengerData>&) : void <br>
+      +getMaxPassengers() : size_t <br>
+      +getFlightNumber() : size_t <br>
+      +getMileage() : size_t <br>
+      +departureTime() : size_t <br>
+      +arrivalTime() : size_t <br>
+      +fullSeats() : size_t <br>
+      +freeSeats() : size_t <br>
+      +getBounceCount() : size_t <br>
+      +getToCity() : char <br>
+      +getFromCity() : char <br>
+      +getSeatMap() : vector<PassengerData> <br>
+      +incBounceCount() : void <br>
+      +decBounceCount() : void <br>
+      +addPassenger(pd : const PassengerData&) : bool <br>
+      +findPassenger(pd : const PassengerData&) : bool <br>
+      +removePassenger(pd : const PassengerData&) : PassengerData <br>
+    </td>
+  </tr>
+</table>
+
+##### `static const size_t MAX_PASSENGERS`
+The maximum number of passengers that the flight can hold, currently, this is set to `40`.
+
+##### `size_t flightNumber`
+Unique identifier for the flight. It is used to compare flights to determine if they are the same, when searching for a flight for example. It is the key for the `FlightData` object. `void setFlightNumber(size_t)` and `size_t getFlightNumber()` are used to set and get the flight number.
+
+##### `size_t departTime` `size_t arriveTime`
+The departure and arrival time of the flight, respectively. They are formatted simply as HHMM, where H represents the hour and M represents the minute. The time is stored in 24 hour time and the overloaded stream insertion operation is used to format this time into a human readable format. Storing the time like this creates and easy to use and efficient way to move the data considering the times are static. `void setDepartTime(size_t)` and `void setArriveTime(size_t)` are used to set the departure and arrival times to the `size_t` argument that they accept. `size_t departureTime()` and `size_t arrivalTime()` are used to get the departure and arrival time of the flight.
+
+##### `size_t bounced`
+The number of passengers that have been popped off the flight to make room for passengers of higher priority. It can be used to ensure that there have not been too many passenger bounced from the flight. `void incBounceCount()` and `void decBounceCount()` are used to increment or decrement this value when a passenger is bounced off the flight or added back to the flight. `size_t getBounceCount()` will return the number of passengers that have been bumped from the flight.
+
+##### `size_t mileage`
+The total mileage of the flight between the cities. `void setMileage(size_t)` is used to set the mileage of the flight to the `size_t` parameter that it accepts and `size_t getMileage()` is used to get the mileage of the flight.
+
+##### `char toCity` `char fromCity`
+The characters that represents the city that the flight is going to and the city that the flight is coming from, respectively. `void setToCity(char)` and `void setFromCity(char)` are used to set these cities to the `char` parameter that they accept. `char getToCity()` and `char getFromCity()` return these characters representing the cities.
+
+##### `size_t fullSeats()` `size_t freeSeats()`
+Return the number of seats that are currently occupied on the flight and the number of seats that are currently available on the flight, respectively. `size_t fullSeats()` returns the size of `vector<PassengerData> seatMap` by using the `size()` function and `size_t freeSeats()` returns `static const size_t MAX_PASSENGERS` minus the size of `vector<PassengerData> seatMap`.
+
+##### `vector<PassengerData> seatMap`
+A `vector<PassengerData>` that contains all the passengers currently on the flight. Member functions `bool addPassenger(const PassengerData&)` and `bool findPassenger(const PassengerData&)` are used to add a passenger to the flight or determine if a passenger is on the flight. They return `bool` based on whether or not the operation was successful or not. When adding a passenger, it will return `false` if the flight is already full and when searching for a passenger of the flight, it will return `false` is the passenger is not on the flight. `PassengerData removePassenger(const PassengerData&)` will remove the specified passenger from the flight, and if the passenger is not on the flight, it will return an empty passenger. These functions accept a `PassengerData` object by constant reference so the objects do not have to be copied when passed as parameters. `vector<PassengerData> getSeatMap()` and `void setSeatMap(const vector<PassengerData>&)` are used to get and set `vector<PassengerData> seatMap`. They are used when performing seating checks to make sure that there are not too many passengers of any one seating priority and to allow for passengers of higher priority to be added at the expense of the economy class passenger.
+
+##### `bool operator==(const FlightData&) const` `bool operator>(const FlightData&) const` `bool operator<(const FlightData&) const`
+Operator overloads used to determine where a flight should be in a list and whether or not flights are the same, to do comparisons between the flight. They check based on the `size_t flightNumber` of the left and right hand operands, this is effectively the key of the `FlightData` object.
+
+##### `friend ostream& operator<<(ostream&, FlightData&);`
+Used to format and output the data of the flight. The data is aligned, leading zeros are added to make the columns clean, the time is formatted to make is human readable, and the columns are set to a fixed space to keep them looking clean. The time is formatted by simply dividing the `size_t` by 100 to get the hours and modulosing by 100 to get the minutes. These minutes and hours are simply then separated by a colon. The data is formatted as follows:
+
+<table>
+  <tr>
+    <td>`flightNumber` fixed to 4, right align</td>
+    <td>`fromCity` fixed to 12, left align</td>
+    <td>`toCity` fixed to 12, left align</td>
+    <td>Formatted `departTime` fixed to 5, left align</td>
+    <td>Formatted `arriveTime` fixed to 5, left align</td>
+    <td>`mileage` fixed to 4, left align</td>
+  </tr>
+</table>
+
+In addition, there are two blank spaces before the data begins and there are two blank spaces separating each of the columns.
