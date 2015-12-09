@@ -55,7 +55,7 @@ public:
 	bool add(const PassengerData& newPassenger);
 	void setFlight(FlightData& aFlight);
 	bool empty() { return seatQueue.empty(); }
-	bool isFull() { return seatQueue.size() > MAX_SEATS; }
+	bool isFull() { return seatQueue.size() >= MAX_SEATS; }
 	void clear();
 	void finalizeSeating();
 };
