@@ -22,7 +22,7 @@ public:
 	// Constructor
 	////////////////////////////////////////////
 	PassengerData( size_t reservation = 0, std::string first = "", std::string last = "",
-				   size_t seatClass = 0, size_t flight = 0);
+				   size_t seatClass = 0, size_t flight = 0 );
 
 	////////////////////////////////////////////
 	// Public Interface Functions
@@ -31,7 +31,7 @@ public:
 								throw(PrecondViolatedExcep);
 	void setLastName	  ( const std::string last )
 								throw(PrecondViolatedExcep);
-	void setMembership    (const size_t seatClass)
+	void setMembership    ( const size_t seatClass )
 								throw(PrecondViolatedExcep);
 	void setReservationNum( const size_t reservation )
 								throw(PrecondViolatedExcep);
@@ -47,9 +47,9 @@ public:
 	///////////////////////////////////////////
 	// Overloaded operators
 	///////////////////////////////////////////
-	const bool operator == (const PassengerData & rhs) const;
-	const bool operator >  (const PassengerData & rhs) const;
-	const bool operator <  (const PassengerData & rhs) const;
+	const bool operator == ( const PassengerData & rhs ) const;
+	const bool operator >  ( const PassengerData & rhs ) const;
+	const bool operator <  ( const PassengerData & rhs ) const;
 
 private:
 	///////////////////////////////////////////
@@ -74,7 +74,7 @@ private:
 ///////////////////////////////////////////////
 // Overloaded Input/Output operators
 ///////////////////////////////////////////////
-std::istream & operator >>( istream & in,  PassengerData & val );
-std::ostream & operator <<( ostream & out, const PassengerData & val );
+std::istream & operator >> ( istream & in,  PassengerData & val );
+std::ostream & operator << ( ostream & out, const PassengerData & val );
 
 #endif
