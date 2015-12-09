@@ -22,10 +22,24 @@ using namespace std;
 class AirlineInterface
 {
 public:
+    
+    /////////////////////////////
+    // Constructors/Destructor //
+    /////////////////////////////
+    
 	AirlineInterface() {}
+    
+    ////////////////////////////////
+    // Public Interface Functions //
+    ////////////////////////////////
+    
     bool displayMenu();
     
 private:
+    
+    /////////////////////////////
+    // Private Utility Classes //
+    /////////////////////////////
     
 //
 // Begin SearchForPassenger nested class.
@@ -201,10 +215,17 @@ private:
 		bool displayPassengers, firstPass;
 	};
 
+    //////////////////////////
+    // Private Data Members //
+    //////////////////////////
+    
     FlightManager data;
 	SearchForPassenger passengerSearch;
 	SearchForFlight flightSearch;
 
+    ///////////////////////////////
+    // Private Utility Functions //
+    ///////////////////////////////
     
     bool displayAllPassengers();
     bool displayPassengersTo(char);
