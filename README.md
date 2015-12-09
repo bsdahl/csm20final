@@ -215,31 +215,48 @@ FlightData.h class is a data class that holds all the data fields associated wit
 
 PassengerData.h class is a data class that holds all the data fields associated with a Passenger.
 
+The default constructor is written such that it will either validate the input via set functions, or set the data members to default values.
+
+All set functions check the data being passed to them and throw PrecondViolatedExcep for invalid data entry. SetFirstName() and SetLastName() use a helper function, nameCheck(string), to validate name data.
+
+All get functions return constant data. No validation is conducted, assumes data has been checked via set functions.
+
+NameCheck(string) is the only helper function. It checks each character in the string using the function isalpha(char);
+
+Overloaded comparison operators check the reservation numbers first. If both reservation numbers are set to default values, the rest of the data members are compared instead. If all data is default, the operator returns false.
+
+Copy constructor and overloaded assignment operator made private to prevent implicit copies.
+
+Overloaded stream extraction operator (>>) inserts data in the order of reservation number, first name, last name, flight number, and membership class. It is assumed the class inputting the data knows this. Only one (string) buffer is used; an int buffer was considered, but the idea was dropped as getline() will not accept an int argument. Instead, the String function stol(string) was used to input numerical data. All input validation is done through the set functions.
+
+Overloaded stream insertion operator (<<) outputs data in the order of Reservation number, first name, last name, membership class, and flight number. Here, the number used to represent membership is used in a switch/case to output a string stating the passenger's seating class.
+
 <table>
 	<tr>
 		<td>PassengerData.h</td>
 	<tr>
-		<td>firstName : string<br>
-		lastName : string<br>
-		seatClass : size_t<br>
-		reservationNumber : size_t<br>
-		flightNum : size_t</td>
+		<td>-firstName : string<br>
+		-lastName : string<br>
+		-seatClass : size_t<br>
+		-reservationNumber : size_t<br>
+		-flightNum : size_t<br>
+		-nameCheck(name : string) : bool<br></td>
 	</tr>
 	<tr>
-		<td>PassengerData()<br>
-		setFirstName()<br>
-		setLastName()<br>
-		setMembership()<br>
-		setReservationNum()<br>
-		setFlightNum()<br>
-		getFirstName()<br>
-		getLastName()<br>
-		getMembership()<br>
-		getReservationNum()<br>
-		getFlightNum()<br>
-		operator ==<br>
-		operator ><br>
-		operator <</td>
+		<td>+PassengerData( reservation : size_t, first : string, last : string, seatClass : size_t, flight : size_t)<br>
+		+setFirstName(first : string) : void<br>
+		+setLastName(last : string) : void<br>
+		+setMembership(seatClass : membership) : void<br>
+		+setReservationNum(reservation : size_t) : void<br>
+		+setFlightNum(flight : size_t) : void<br>
+		+getFirstName() : string<br>
+		+getLastName() : string<br>
+		+getMembership() : size_t<br>
+		+getReservationNum() : size_t<br>
+		+getFlightNum() : size_t <br>
+		+operator ==<br>
+		+operator ><br>
+		+operator <</td>
 	</tr>
 </table>
 
