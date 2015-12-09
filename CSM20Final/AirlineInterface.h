@@ -60,7 +60,7 @@ private:
                                                       markedForRemoval = nullptr;
                                                   }}
 
-		void operator()(PassengerData& passenger)
+		void operator()(PassengerData passenger)
 		{
 			bool match = true;
 			if (firstNameKey != "")
@@ -110,6 +110,10 @@ private:
                     cout << error.what() << endl;
                     cout << "\nRemoval failed.";
                 }
+            }
+            else
+            {
+                cout << "\nRemoval failed.";
             }
             return false;
         }
