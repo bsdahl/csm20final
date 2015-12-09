@@ -167,7 +167,7 @@ PASS_DATA_TYPE FlightManager::removePassenger(const PASS_DATA_TYPE& aPassenger)	
 			{
 				nextFromWaitlist next(flightNumber);
 				waitList.inorderTraverse(next);		// Find next passenger.
-				if (waitList.contains(next.get()))	// Check if a passenger was found.
+				if (next.found())	// Check if a passenger was found.
 				{
 					// Add waitlisted passenger to flight and requeue passengers.
 					if (flightBuffer.getBounceCount() > 0)

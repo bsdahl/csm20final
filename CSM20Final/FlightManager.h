@@ -62,18 +62,24 @@ private:
 	{
 	private:
 		size_t flightNum;
-		PASS_DATA_TYPE nextPassenger;
+		PASS_DATA_TYPE* nextPassenger;
 	public:
-		nextFromWaitlist(const size_t& flightNumber) : flightNum(flightNumber) {}
+		nextFromWaitlist(const size_t& flightNumber) : flightNum(flightNumber), nextPassenger(nullptr) {}
+		~nextFromWaitlist() { delete nextPassenger; nextPassenger = nullptr; }
 		void operator()(const PASS_DATA_TYPE& aPassenger)
 		{
 			if (aPassenger.getFlightNum() == flightNum)
 			{
-				if ((nextPassenger.getMembership() == 0) || (aPassenger.getMembership() < nextPassenger.getMembership()))
-					nextPassenger = aPassenger;
+				if (nextPassenger == nullptr)
+					nextPassenger = new PassengerData(aPassenger);
+				if (aPassenger.getMembership() < nextPassenger->getMembership())
+				{
+					*nextPassenger = aPassenger;
+				}
 			}
 		}
-		PASS_DATA_TYPE get() { return nextPassenger; }
+		PASS_DATA_TYPE get() { return *nextPassenger; }
+		bool found() { return nextPassenger != nullptr;  }
 	};
 
 	//////////////////////////
