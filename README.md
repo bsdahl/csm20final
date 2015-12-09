@@ -137,6 +137,12 @@ AirlineInterface.h also contains a couple nested classes including SearchForPass
 
 FlightManager.h is the main data class. It is responsible for holding AVL trees of PassengerData objects and FlightData objects. AVL trees were chosen as the primary data container for ease of sorting and searching based on key values.
 It's constructor reads the input files and fills the trees. The constructor also calculates the distances between airports and calculates the seatmaps for each flight and the waitlist. FlightManager.h also provides traversal functions to the AirlineInterface.h class for the private data members.
+addPassenger() adds a passenger to passengerList and the seating vector on their corresponding flight.
+addFlight() adds a flight to flightList and calls calculateMileage using the flight as the parameter.
+removePassenger() removes a passenger from all lists and their flight's corresponding seating vector.
+calculateMileage() calculates the mileage of a flight using the flightMap graph.
+populateMap() sets the vertices and edge length of flightMap.
+
 
 <table>
 	<tr>
@@ -154,19 +160,21 @@ It's constructor reads the input files and fills the trees. The constructor also
 		+traversePassenger() : void<br>
 		+traverseFlight() : void<br>
 		+traverseWait() : void<br>
-		+addPassenger( passenger : const PassengerData&amp; ) : bool     Adds a passenger to passengerList and the seating vector on their corresponding flight.<br>
-		+addFlight( flight : FlightData&amp; ) : void     Adds a flight to flightList and calls calculateMileage using the flight as the parameter.<br>
-		+removePassenger( aPassenger : const PassengerData&amp; ) : PassengerData     Removes a passenger from all lists and their flight's corresponding seating vector.<br>
-		-calculateMileage( flight : FlightData&amp; ) : void     Calculates the mileage of a flight using the flightMap graph.<br>
+		+addPassenger( passenger : const PassengerData&amp; ) : bool<br>
+		+addFlight( flight : FlightData&amp; ) : void<br>
+		+removePassenger( aPassenger : const PassengerData&amp; ) : PassengerData<br>
+		-calculateMileage( flight : FlightData&amp; ) : void<br>
 		-readFlightsFromFile( inputStream : ifstream&amp; ) : void<br>
 		-readPassengersFromFile( inputStream : ifstream&amp; ) : void<br>
-		-populateMap() : void     Sets the vertices and edge length of flightMap</td>
+		-populateMap() : void</td>
 	</tr>
 </table>
 
 ###nextFromWaitList
 
 nextFromWaitList is a private utility class within FlightManager. It is called as a function object parameter for an AVL tree traversal. It will determine the next highest membership passenger waitlisted for a given flight. This passenger is stored in dynamic memory pointed to by nextPassenger, and is returned by get(). The found() function returns a bool indicating whether a passenger for the specified flight was found in the AVL tree.
+get() returns *nextPassengers.
+found() returns nextPassenger != nullptr.
 
 <table>
 	<tr>
@@ -179,14 +187,18 @@ nextFromWaitList is a private utility class within FlightManager. It is called a
 	<tr>
 		<td>+nextFromWaitlist( flightNumber : const size_t&amp; )<br>
 		+operator()( aPassenger : const PassengerData&amp; ) : void<br>
-		+get() : PassengerData     Returns *nextPassenger<br>
-		+found() : bool     Returns nextPassenger != nullptr</td>
+		+get() : PassengerData<br>
+		+found() : bool</td>
 	</tr>
 </table>
 
 ###SeatingQueue.h
 
 The SeatingQueue.h class is a functional class that extracts the PassengerData vector from a FlightData object, and enqueues the PassengerData objects in a priority queue checking for membership class. The underlying structure is a std::priority_queue; chosen for ease of sorting by clearly defined priority levels. Membership classes range from 1 to 4, with 1 being the highest class and 4 the lowest.
+empty() returns seatQueue.empty().
+isFull() returns seatQueue.size() &gt;= MAX_SEATS.
+clear() empties seatQueue and sets flightPtr = nullptr.
+finalizeSeating() inserts passengers from seatQueue into the seating vector. Handles bouncing lower class passengers and adding excess passengers to the waitlist.
 
 <table>
 	<tr>
@@ -211,10 +223,10 @@ The SeatingQueue.h class is a functional class that extracts the PassengerData v
 			+SeatingQueue( waitList : AVLTree&lt;PassengerData&gt;&amp; )
 			+add( newPassenger : const PassengerData&amp; ) : bool<br>
 			+setFlight( aFlight : FlightData&amp; ) : void<br>
-			+empty() : bool     Returns seatQueue.empty()<br>
-			+isFull() : bool     Returns seatQueue.size() &gt;= MAX_SEATS<br>
-			+clear() : void     Empties seatQueue and sets flightPtr = nullptr<br>
-			+finalizeSeating() : void     Inserts passengers into seating vector from seatQueue. Handles bouncing lower class passengers and adding excess passengers to the waitlist.
+			+empty() : bool<br>
+			+isFull() : bool<br>
+			+clear() : void<br>
+			+finalizeSeating() : void
 		</td>
 	</tr>
 </table>
