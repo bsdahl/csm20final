@@ -31,6 +31,36 @@ We all worked together to create a design plan for the application. Strategies i
 
 ##Project Architecture
 
+###Input Files
+
+We decided to use CSV files because comma delimited files are relatively easy to parse. It is also easy to create and modify CSV files in programs such as Excel. The columns are as shown below.
+
+<table>
+	<tr>
+		<td colspan="5">PassengerData.txt</td>
+	</tr>
+	<tr>
+		<td>Reservation Number</td>
+		<td>First Name</td>
+		<td>Last Name</td>
+		<td>Flight Number</td>
+		<td>Seat Class Number</td>
+	</tr>
+</table>
+
+<table>
+	<tr>
+		<td colspan="5">FlightData.txt</td>
+	</tr>
+	<tr>
+		<td>Flight Number</td>
+		<td>Origin City</td>
+		<td>Destination City</td>
+		<td>Departure Time</td>
+		<td>Arrival Time</td>
+	</tr>
+</table>
+
 ###AirlineInterface.h
 
 AirlineInterface.h is the main interface class for the program. Its responsibilities are to hold the FlightManager data member, and provide input/output interface for the program. displayMenu() is designed to be used in main inside a while loop. It returns false when the user wishes to quit. 
