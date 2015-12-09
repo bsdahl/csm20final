@@ -38,6 +38,7 @@ private:
 	{
 	public:
 		SearchForPassenger()					{ clearKeys();			   }
+		~SearchForPassenger()					{ clearKeys();			   }
 
 		void setFirstNameKey	 (string key)	{ firstNameKey		= key; }
 		void setLastNameKey		 (string key)	{ lastNameKey		= key; }
