@@ -226,7 +226,7 @@ NameCheck(string) is the only helper function. It checks each character in the s
 
 Overloaded comparison operators check the reservation numbers first. If both reservation numbers are set to default values, the rest of the data members are compared instead. If all data is default, the operator returns false.
 
-Copy constructor and overloaded assignment operator made private to prevent implicit copies.
+Copy constructor and overloaded assignment operator originally made private to prevent implicit copies. Copies turned out to be extremely valuable in the implementation of other classes that use PassengerData, thus the copy constructor is back in.
 
 Overloaded stream extraction operator (>>) inserts data in the order of reservation number, first name, last name, flight number, and membership class. It is assumed the class inputting the data knows this. Only one (string) buffer is used; an int buffer was considered, but the idea was dropped as getline() will not accept an int argument. Instead, the String function stol(string) was used to input numerical data. All input validation is done through the set functions.
 
