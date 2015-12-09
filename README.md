@@ -341,7 +341,7 @@ shortest path between two vertices(cities) whilst maintaining data independence 
 
 <table>
   <tr>
-    <td>**FlightData.h**</td>
+    <td><b>FlightData.h</b></td>
   </tr>
   <tr>
     <td>
@@ -422,12 +422,12 @@ Used to format and output the data of the flight. The data is aligned, leading z
 
 <table>
   <tr>
-    <td>`flightNumber` fixed to 4, right align</td>
-    <td>`fromCity` fixed to 12, left align</td>
-    <td>`toCity` fixed to 12, left align</td>
-    <td>Formatted `departTime` fixed to 5, left align</td>
-    <td>Formatted `arriveTime` fixed to 5, left align</td>
-    <td>`mileage` fixed to 4, left align</td>
+    <td><code>flightNumber</code> fixed to 4, right align</td>
+    <td><code>fromCity</code> fixed to 12, left align</td>
+    <td><code>toCity</code> fixed to 12, left align</td>
+    <td>Formatted <code>departTime</code> fixed to 5, left align</td>
+    <td>Formatted <code>arriveTime</code> fixed to 5, left align</td>
+    <td><code>mileage</code> fixed to 4, left align</td>
   </tr>
 </table>
 
