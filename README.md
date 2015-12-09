@@ -135,7 +135,8 @@ AirlineInterface.h also contains a couple nested classes including SearchForPass
 
 ###FlightManager.h
 
-FlightManager.h is the main data class. It is responsible for holding AVL trees of PassengerData objects and FlightData objects. It's constructor reads the input files and fills the trees. The constructor also calculates the distances between airports and calculates the seatmaps for each flight and the waitlist. FlightManager.h also provides traversal functions to the AirlineInterface.h class for the private data members.
+FlightManager.h is the main data class. It is responsible for holding AVL trees of PassengerData objects and FlightData objects. AVL trees were chosen as the primary data container for ease of sorting and searching based on key values.
+It's constructor reads the input files and fills the trees. The constructor also calculates the distances between airports and calculates the seatmaps for each flight and the waitlist. FlightManager.h also provides traversal functions to the AirlineInterface.h class for the private data members.
 
 <table>
 	<tr>
@@ -153,19 +154,20 @@ FlightManager.h is the main data class. It is responsible for holding AVL trees 
 		+traversePassenger() : void<br>
 		+traverseFlight() : void<br>
 		+traverseWait() : void<br>
-		+addPassenger( passenger : const PassengerData&amp; ) : bool<br>
-		+addFlight( flight : FlightData&amp; ) : void<br>
-		+removePassenger( aPassenger : const PassengerData&amp; ) : PassengerData<br>
-		-calculateMileage( flight : FlightData&amp; ) : void<br>
+		+addPassenger( passenger : const PassengerData&amp; ) : bool     Adds a passenger to passengerList and the seating vector on their corresponding flight.<br>
+		+addFlight( flight : FlightData&amp; ) : void     Adds a flight to flightList and calls calculateMileage using the flight as the parameter.<br>
+		+removePassenger( aPassenger : const PassengerData&amp; ) : PassengerData     Removes a passenger from all lists and their flight's corresponding seating vector.<br>
+		-calculateMileage( flight : FlightData&amp; ) : void     Calculates the mileage of a flight using the flightMap graph.<br>
 		-readFlightsFromFile( inputStream : ifstream&amp; ) : void<br>
 		-readPassengersFromFile( inputStream : ifstream&amp; ) : void<br>
-		-populateMap() : void</td>
+		-populateMap() : void     Sets the vertices and edge length of flightMap</td>
 	</tr>
 </table>
 
 ###nextFromWaitList
 
 nextFromWaitList is a private utility class within FlightManager. It is called as a function object parameter for an AVL tree traversal. It will determine the next highest membership passenger waitlisted for a given flight. This passenger is stored in dynamic memory pointed to by nextPassenger, and is returned by get(). The found() function returns a bool indicating whether a passenger for the specified flight was found in the AVL tree.
+
 <table>
 	<tr>
 		<td>nextFromWaitlist</td>
@@ -177,38 +179,55 @@ nextFromWaitList is a private utility class within FlightManager. It is called a
 	<tr>
 		<td>+nextFromWaitlist( flightNumber : const size_t&amp; )<br>
 		+operator()( aPassenger : const PassengerData&amp; ) : void<br>
-		+get() : PassengerData<br>
-		+found() : bool</td>
+		+get() : PassengerData     Returns *nextPassenger<br>
+		+found() : bool     Returns nextPassenger != nullptr</td>
 	</tr>
 </table>
 
-###FlightData.h
+###SeatingQueue.h
 
-FlightData.h class is a data class that holds all the data fields associated with a Flight.
+The SeatingQueue.h class is a functional class that extracts the PassengerData vector from a FlightData object, and enqueues the PassengerData objects in a priority queue checking for membership class. The underlying structure is a std::priority_queue; chosen for ease of sorting by clearly defined priority levels. Membership classes range from 1 to 4, with 1 being the highest class and 4 the lowest.
 
 <table>
 	<tr>
-		<td>FlightData.h</td>
-	<tr>
-		<td>-MAX_PASSENGERS : const size_t = 40<br>
-		-flightNumber : size_t<br>
-		-mileage : size_t<br>
-		-departTime : size_t<br>
-		-arriveTime : size_t<br>
-		-toCity : char<br>
-		-fromCity : char<br>
-		-seatMap : vector&lt;PassengerData&gt;</td>
+		<td>SeatingQueue.h</td>
 	</tr>
 	<tr>
-		<td>+FlightData( fn : size_t = 0, miles : size_t = 0, departTime : size_t = 0, arriveTime : size_t = 0, toc : char = '0', frc : char = '0' )<br>
-		+setFlightNumber( fn : size_t ) : void<br>
-		+setMileage( miles : size_t ) : void<br>
-		+setDepartTime( time : size_t ) : void<br>
-		+setArriveTime( time : size_t ) : void<br>
-		+setToCity( city : char ) : void<br>
-		+setFromCity( city : char ) : void<br>
-		+setFromCity( city : char ) : void<br>
+		<td>-MAX_PILOT_CLASS : static const size_t = 3<br>
+			-MAX_FIRST_CLASS : static const size_t = 5<br>
+			-MAX_BUSI_CLASS : static const size_t = 5<br>
+			-MAX_ECON_CLASS : static const size_t = 27<br>
+			-MAX_BOUNCED : static const size_t = 10<br>
+			-MAX_SEATS : static const size_t = 40<br>
+			-PILOT_CLASS : static const size_t = 1<br>
+			-FIRST_CLASS : static const size_t = 2<br>
+			-BUSI_CLASS : static const size_t = 3<br>
+			-seatQueue : std::priority_queue&lt;PassengerData, std::vector&lt;PassengerData&gt;, compareMembership&gt;<br>
+			-waitListPtr : AVLTress&lt;PassengerData&gt;*<br>
+			-flightPtr : FlightData* = nullptr<td>
+	</tr>
+	<tr>
+		<td>-queueCurrentPassengers() : void<br>
+			+SeatingQueue( waitList : AVLTree&lt;PassengerData&gt;&amp; )
+			+add( newPassenger : const PassengerData&amp; ) : bool<br>
+			+setFlight( aFlight : FlightData&amp; ) : void<br>
+			+empty() : bool     Returns seatQueue.empty()<br>
+			+isFull() : bool     Returns seatQueue.size() &gt;= MAX_SEATS<br>
+			+clear() : void     Empties seatQueue and sets flightPtr = nullptr<br>
+			+finalizeSeating() : void     Inserts passengers into seating vector from seatQueue. Handles bouncing lower class passengers and adding excess passengers to the waitlist.
 		</td>
+	</tr>
+</table>
+
+###compareMembership
+
+compareMembership is a private utility class of SeatingQueue.h. It is used as a function object for use in an std::priority_queue to compare the membership values of the enqueued PassengerData objects. Low membership values have higher priority than higher values.
+<table>
+	<tr>
+		<td>compareMembership</td>
+	</tr>
+	<tr>
+		<td>+operator()( passenger1 : const PassengerData&amp;, passenger2 : const PassengerData&amp;) : bool</td>
 	</tr>
 </table>
 
