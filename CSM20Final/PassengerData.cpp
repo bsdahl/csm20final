@@ -17,14 +17,28 @@ PassengerData::PassengerData( size_t reservation, string first, string last,
 {
 	if (reservation > 0)
 		setReservationNum(reservation);
+	else
+		reservationNum = 0;
+
 	if (first != "")
 		setFirstName(first);
+	else
+		firstName = "";
+
 	if (last != "")
 		setLastName(last);
+	else
+		lastName = "";
+
 	if (seatClass > 0)
 		setMembership(seatClass);
+	else
+		this->seatClass = 0;
+
 	if (flight > 0)
 		setFlightNum(flight);
+	else
+		flightNum = 0;
 }
 
 void PassengerData::setFirstName(string first) throw(PrecondViolatedExcep)
