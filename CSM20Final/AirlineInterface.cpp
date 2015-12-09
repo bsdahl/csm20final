@@ -285,6 +285,8 @@ bool AirlineInterface::removePassenger(string firstName, string lastName)
     
     data.traversePassenger(passengerSearch);
     
+    passengerSearch.removeMarkedPassenger();
+    
     enterToContinue();
     return true;
 }
