@@ -294,10 +294,13 @@ Overloaded stream insertion operator (<<) outputs data in the order of Reservati
 	</tr>
 </table>
 
-###Graph.h
+###graph.h
 
-*Graph* class is a weighted, undirected and connected graph, implemented as an adjacency list. The class is responsible 
-for representing the flight map, where the vertices will represent the cities, and the edges will represent the distance between the cities. Class is base class for *flightMap* class
+For the *graph* class we went with a weighted, undirected and connected graph, since **1.** all cities had to be connected, **2.** there is a distance between cities, and **3.** it's possible for a flight to go both directions between cities. Furthermore, the *graph* class was implemented as an adjacency list. One of the advantages of an adjacency list implementation over an adjacency matrix is that an adjacency list is more efficient in finding all vertices adjacent to a given vertex. Which means that Dijkstra's algorithm will run more efficiently. The reason why is because Dijkstra's algorithm uses breath-first search to traverse all vertices in the graph, and BFS function by first visiting all vertices adjacent to a given vertex(which is the more efficient operation performed by an adjacency list). Since the majority of operations demanded from this class in this this particular application will come from Dijkstra's algorithm, implementing the graph as an adjacency list was the more efficient choice. 
+
+Of course, the main duty relegated to the *graph* class and our primary reason for choosing this class, was to represent our flight map. The vertices represent cities and the edges represent the distance(in miles) cost between the cities. for this particular flight map, it was possible to travel either direction between cities. 
+
+*graph* class is base class for *flightMap* class
 
 <table>
 	<tr>
@@ -321,10 +324,11 @@ for representing the flight map, where the vertices will represent the cities, a
 	</tr>
 </table>
 
-###flightMap.h
+###flightMap.h & Dijkstra's algorithm
 
-*flightMap* class inherits from *Graph* class. The class was created to implement Dijkstra's algorithm to find the
-shortest path between two vertices(cities) whilst maintaining data independence of the class *Graph*.   
+*flightMap* class was created to implement Dijkstra's algorithm. The goal was to maintain the data independence of the *graph* class and have the *flightMap* class inherit from *graph* class to expand on that needed functionality. We found that Dijkstra's algorithm was the best option for finding the shortest path between two cities (vertices), since the algorithm will find the shortest path between the source vertex and all other vertices. Furthermore, since only the shortest distance between the origin vertex and the destination vertex is desired, the algorithm was modified to terminate as soon as it found the destination vertex.
+
+*flightMap* class inherits from *graph* class  
 
 <table>
 	<tr>
